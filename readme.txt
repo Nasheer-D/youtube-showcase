@@ -83,6 +83,7 @@ The simplest way to install is to click on 'Plugins' then 'Add' and type 'Youtub
 2. Hides thumbnail navigation for devices with screen sizes below 768px
 3. Displays a 4 column responsive video grid gallery created automatically during plugin setup
 4. Each video resides on its own page with WordPress comments enabled, optionally you could display Featured and Recent Sidebar Widgets
+5. Enter your videos using a simple and intuitive interface from admin video editor
 
 == Changelog ==
 
