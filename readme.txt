@@ -47,7 +47,7 @@ Displays the videos you selected as featured in your video page on your sidebar.
 Displays your recently posted videos on the sidebar.
 
 > <strong>Customization</strong><br>
-> YouTube Showcase is designed and developed using WP App Studio AUTOBAHN (4.4+) without writing a single line of PHP code. Customize it to your needs by: <br>
+> YouTube Showcase is designed and developed using WP App Studio AUTOBAHN (4.3+) without writing a single line of PHP code. Customize it to your needs by: <br>
 > 1. [Download App signature.](https://wpas.emdplugins.com/wpas-demos/)<br>
 > 2. [Download WP App Studio.](https://wordpress.org/plugins/wp-app-studio/) <br>
 > 3. [Import App signature to WP App Studio AUTOBAHN.](https://wpas.emdplugins.com/)<br>
