@@ -1,5 +1,5 @@
 === Youtube Showcase ===
-Contributors: eMarket Design
+Contributors: emarket-design
 Plugin URI: https://emdplugins.com
 Author URI: https://emarketdesign.com
 Donate link: https://emarketdesign.com/donate-emarket-design/
