@@ -18,6 +18,8 @@ Each video resides on its own page with WordPress comments enabled. Video pages 
 
 YouTube Video ID is a 11 character string that YouTube uses to uniquely identify each video. For example, the video at https://www.youtube.com/watch?v=9K4uBRkFJEU has the id 9K4uBRkFJEU.
 
+After you install our plugin you will see our setup assistant which creates all the required pages, ready to use.
+
 Two Video Gallery pages are provided:
 
 * Video Gallery
@@ -77,10 +79,10 @@ The simplest way to install is to click on 'Plugins' then 'Add' and type 'Youtub
 * Look for "Youtube Showcase" and click Activate.
 
 == Screenshots ==
-1. Displays a responsive video gallery with thumbnail navigation
-2. Hides thumbnail navigation for screen sizes below 768px
-3. Displays a 4 column responsive video grid gallery
-4. Displays a single video page with featured and recent sidebar widgets
+1. Displays a responsive video gallery with thumbnail navigation created automatically during plugin setup
+2. Hides thumbnail navigation for devices with screen sizes below 768px
+3. Displays a 4 column responsive video grid gallery created automatically during plugin setup
+4. Each video resides on its own page with WordPress comments enabled, optionally you could display Featured and Recent Sidebar Widgets
 
 == Changelog ==
 
