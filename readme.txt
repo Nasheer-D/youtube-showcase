@@ -5,7 +5,7 @@ Author URI: https://emarketdesign.com
 Donate link: https://emarketdesign.com/donate-emarket-design/
 Requires at least: 3.8
 Tested up to: 4.1
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: youtube,video,video gallery,youtube gallery,youtube widget,embed videos,embed youtube,simple youtube,simple videos,simple video gallery,simple gallery,sidebar videos,video plugin,youtube plugin,responsive,video posts,videos,youtube player,featured videos,recent videos,youtube sidebar widget
@@ -87,5 +87,8 @@ The simplest way to install is to click on 'Plugins' then 'Add' and type 'Youtub
 
 == Changelog ==
 
+= 1.0.1 =
+* Cleaned up the code related to Video Grid
+* Fixed issue with Video Grid Gallery Navigation
 = 1.0.0 =
 * Initial release

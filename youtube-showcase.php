@@ -3,7 +3,7 @@
  * Plugin Name: Youtube Showcase
  * Plugin URI: https://emarketdesign.com
  * Description: YouTube Showcase is a powerful but simple-to-use YouTube video gallery plugin with responsive frontend.
- * Version: 1.0.0
+ * Version: 1.0.1
  * Author: eMarket Design
  * Author URI: https://emarketdesign.com
  * Text Domain: utube-scase
@@ -74,7 +74,7 @@ if (!class_exists('Youtube_Showcase')):
 		 * @return void
 		 */
 		private function define_constants() {
-			define('UTUBE_SCASE_VERSION', '1.0.0');
+			define('UTUBE_SCASE_VERSION', '1.0.1');
 			define('UTUBE_SCASE_AUTHOR', 'eMarket Design');
 			define('UTUBE_SCASE_PLUGIN_FILE', __FILE__);
 			define('UTUBE_SCASE_PLUGIN_DIR', plugin_dir_path(__FILE__));

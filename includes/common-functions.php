@@ -170,10 +170,6 @@ function emd_parse_template_tags($app, $message, $pid) {
 		$permlink = wp_login_url(add_query_arg('preview', 'true', get_permalink($pid)));
 	}
 
-	$author = get_the_author();
-	if(empty($author)){
-		$author = get_the_author_meta('nickname',$mypost->post_author);
-	}
 	$builtins = Array(
 		'title' => $mypost->post_title,
 		'permalink' => $permlink,
@@ -181,7 +177,14 @@ function emd_parse_template_tags($app, $message, $pid) {
 		'delete_link' => add_query_arg('frontend', 'true', get_delete_post_link($pid)) ,
 		'excerpt' => $mypost->post_excerpt,
 		'content' => $mypost->post_content,
-		'author' => $author,
+		'author_dispname' => get_the_author_meta('display_name',$mypost->post_author),
+		'author_nickname' => get_the_author_meta('nickname',$mypost->post_author),
+		'author_fname' => get_the_author_meta('first_name',$mypost->post_author),
+		'author_lname' => get_the_author_meta('last_name',$mypost->post_author),
+		'author_login' => get_the_author_meta('user_login',$mypost->post_author),
+		'author_bio' => get_the_author_meta('description',$mypost->post_author),
+		'author_googleplus' => get_the_author_meta('googleplus',$mypost->post_author),
+		'author_twitter' => get_the_author_meta('twitter',$mypost->post_author),
 	);
 	//first get each template tag
 	if (preg_match_all('/\{([^}]*)\}/', $message, $matches)) {

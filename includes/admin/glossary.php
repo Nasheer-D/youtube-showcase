@@ -3,7 +3,7 @@
  * Settings Glossary Functions
  *
  * @package UTUBE_SCASE
- * @version 1.0.0
+ * @version 1.0.1
  * @since WPAS 4.0
  */
 if (!defined('ABSPATH')) exit;
@@ -27,7 +27,7 @@ function utube_scase_settings_glossary() {
 <h3 class="accordion-section-title hndle" tabindex="1"><?php _e('Videos', 'utube-scase'); ?></h3>
 <div class="accordion-section-content">
 <div class="inside">
-<table class="form-table"><p class"lead"><?php _e('', 'utube-scase'); ?></p><tr>
+<table class="form-table"><p class"lead"><?php _e('Videos are YouTube videos identified by Video ID.', 'utube-scase'); ?></p><tr>
 <th><?php _e('Title', 'utube-scase'); ?></th>
 <td><?php _e(' Title is a required field. Title does not have a default value. ', 'utube-scase'); ?></td>
 </tr><tr>

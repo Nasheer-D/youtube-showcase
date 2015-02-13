@@ -7,8 +7,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2015-02-12T12:19:42-05:00\n"
-"POT-Creation-Date: 2015-02-12T12:19:42-05:00\n"
+"PO-Revision-Date: 2015-02-12T22:54:18-05:00\n"
+"POT-Creation-Date: 2015-02-12T22:54:18-05:00\n"
 
 #: youtube-showcase/includes/admin/glossary.php:22
 msgid "YouTube Showcase is a powerful but simple-to-use YouTube video gallery plugin with responsive frontend."
@@ -23,7 +23,7 @@ msgid "Videos"
 msgstr ""
 
 #: youtube-showcase/includes/admin/glossary.php:30
-msgid ""
+msgid "Videos are YouTube videos identified by Video ID."
 msgstr ""
 
 #: youtube-showcase/includes/admin/glossary.php:31

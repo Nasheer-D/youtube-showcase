@@ -3,7 +3,7 @@
  * Enqueue Scripts Functions
  *
  * @package UTUBE_SCASE
- * @version 1.0.0
+ * @version 1.0.1
  * @since WPAS 4.0
  */
 if (!defined('ABSPATH')) exit;

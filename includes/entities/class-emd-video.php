@@ -3,7 +3,7 @@
  * Entity Class
  *
  * @package UTUBE_SCASE
- * @version 1.0.0
+ * @version 1.0.1
  * @since WPAS 4.0
  */
 if (!defined('ABSPATH')) exit;
@@ -186,7 +186,7 @@ class Emd_Video extends Emd_Entity {
 			'public' => true,
 			'publicly_queryable' => true,
 			'show_ui' => true,
-			'description' => __('', 'utube-scase') ,
+			'description' => __('Videos are YouTube videos identified by Video ID.', 'utube-scase') ,
 			'show_in_menu' => true,
 			'menu_position' => 6,
 			'has_archive' => true,

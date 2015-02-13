@@ -1,6 +1,6 @@
 <?php global $video_grid_count;
 $ent_attrs = get_option('utube_scase_attr_list'); ?>
-<div class="col-sm-3 !#ent_video_active#" data-slide-to="!#layout_counter_id#" data-target="#emdvideos">
+<div class="col-sm-3">
     <div class="panel panel-info">
         <div class="panel-body">
             <div class="thumbnail">
