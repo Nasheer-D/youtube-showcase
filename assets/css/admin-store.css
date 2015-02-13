@@ -1,0 +1,39 @@
+#the-list .emd-plugin-card{
+    background-color: #fff;
+    border: 1px solid #dedede;
+    box-sizing: border-box;
+    float: left;
+    margin: 5px;
+    padding: 0 10px;
+    width: 320px;
+}
+#the-list a.thickbox {
+    font-size: 14px;
+}
+.emd-plugin-card-bottom {
+    border-top: 1px solid #dedede;
+    clear: both;
+    overflow: hidden;
+    padding: 12px 0;
+}
+.emd-plugin-card-top .desc.column-description{
+   height:60px;
+}
+.emd-plugin-card-bottom a.button-primary{
+   float:right;
+}
+.emd-plugin-card-bottom div.plugin-offers{
+  float:left;
+  width:200px;
+  color:red;
+  position:relative;
+}
+.emd-plugin-card-top div.name.column-name{
+  position:relative;
+}
+.emd-plugin-card-top div.name.column-name > span{
+    position: absolute;
+    right: 0;
+    top: -10px;
+    color:red;
+}
