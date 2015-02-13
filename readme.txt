@@ -18,6 +18,8 @@ Each video resides on its own page with WordPress comments enabled. Video pages 
 
 YouTube Video ID is a 11 character string that YouTube uses to uniquely identify each video. For example, the video at https://www.youtube.com/watch?v=9K4uBRkFJEU has the id 9K4uBRkFJEU.
 
+>[Plugin Documentation](https://docs.emdplugins.com/docs/youtube-showcase-community-documentation/)
+
 After you install our plugin you will see our setup assistant which creates all the required pages, ready to use.
 
 Two Video Gallery pages are provided:
