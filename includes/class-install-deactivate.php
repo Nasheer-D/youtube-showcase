@@ -2,7 +2,7 @@
 /**
  * Install and Deactivate Plugin Functions
  * @package YT_SCASE_COM
- * @version 1.1
+ * @version 1.1.1
  * @since WPAS 4.0
  */
 if (!defined('ABSPATH')) exit;
@@ -251,6 +251,11 @@ if (!class_exists('Yt_Scase_Com_Install_Deactivate')):
 				return;
 			}
 			global $wpdb;
+			$curr_version = get_option($this->option_name . '_version',0);
+			if(version_compare($curr_version, constant(strtoupper($this->option_name) . '_VERSION'), '<')){
+				$this->set_options();
+				update_option($this->option_name . '_version',constant(strtoupper($this->option_name) . '_VERSION'));
+			}
 			if (!empty($_GET['setup_' . $this->option_name . '_pages'])) {
 				$shc_list = get_option($this->option_name . '_shc_list');
 				$types = Array(

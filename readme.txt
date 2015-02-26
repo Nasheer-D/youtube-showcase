@@ -5,7 +5,7 @@ Author URI: https://emarketdesign.com
 Donate link: https://emarketdesign.com/donate-emarket-design/
 Requires at least: 3.8
 Tested up to: 4.1.1
-Stable tag: 1.1.0
+Stable tag: 1.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: youtube,video,video gallery,youtube gallery,youtube widget,embed videos,embed youtube,simple youtube,simple videos,simple video gallery,simple gallery,sidebar videos,video plugin,youtube plugin,responsive,video posts,videos,youtube player,featured videos,recent videos,youtube sidebar widget
@@ -89,6 +89,8 @@ The simplest way to install is to click on 'Plugins' then 'Add' and type 'Youtub
 5. Enter your videos using a simple and intuitive interface from admin video editor
 
 == Changelog ==
+= 1.1.1 =
+* Fix update related defect
 = 1.1.0 =
 * Moved responsive arrow head icons closer to the video
 * Improved compatibility with the other themes and plugins.
