@@ -3,11 +3,11 @@
  * Plugin Name: Youtube Showcase
  * Plugin URI: https://emarketdesign.com
  * Description: YouTube Showcase is a powerful but simple-to-use YouTube video gallery plugin with responsive frontend.
- * Version: 1.0.1
+ * Version: 1.1
  * Author: eMarket Design
  * Author URI: https://emarketdesign.com
- * Text Domain: utube-scase
- * @package UTUBE_SCASE
+ * Text Domain: yt-scase-com
+ * @package YT_SCASE_COM
  * @since WPAS 4.0
  */
 /*
@@ -25,15 +25,15 @@ if (!class_exists('Youtube_Showcase')):
 		 * @var Youtube_Showcase single instance of the class
 		 */
 		private static $_instance;
-		public $textdomain = 'utube-scase';
-		public $app_name = 'utube_scase';
+		public $textdomain = 'yt-scase-com';
+		public $app_name = 'yt_scase_com';
 		/**
 		 * Main Youtube_Showcase Instance
 		 *
 		 * Ensures only one instance of Youtube_Showcase is loaded or can be loaded.
 		 *
 		 * @static
-		 * @see UTUBE_SCASE()
+		 * @see YT_SCASE_COM()
 		 * @return Youtube_Showcase - Main instance
 		 */
 		public static function instance() {
@@ -74,11 +74,12 @@ if (!class_exists('Youtube_Showcase')):
 		 * @return void
 		 */
 		private function define_constants() {
-			define('UTUBE_SCASE_VERSION', '1.0.1');
-			define('UTUBE_SCASE_AUTHOR', 'eMarket Design');
-			define('UTUBE_SCASE_PLUGIN_FILE', __FILE__);
-			define('UTUBE_SCASE_PLUGIN_DIR', plugin_dir_path(__FILE__));
-			define('UTUBE_SCASE_PLUGIN_URL', plugin_dir_url(__FILE__));
+			define('YT_SCASE_COM_VERSION', '1.1');
+			define('YT_SCASE_COM_AUTHOR', 'eMarket Design');
+			define('YT_SCASE_COM_NAME', 'Youtube Showcase');
+			define('YT_SCASE_COM_PLUGIN_FILE', __FILE__);
+			define('YT_SCASE_COM_PLUGIN_DIR', plugin_dir_path(__FILE__));
+			define('YT_SCASE_COM_PLUGIN_URL', plugin_dir_url(__FILE__));
 		}
 		/**
 		 * Include required files
@@ -88,59 +89,59 @@ if (!class_exists('Youtube_Showcase')):
 		 */
 		private function includes() {
 			//these files are in all apps
-			if (!function_exists('rwmb_meta')) {
-				require_once UTUBE_SCASE_PLUGIN_DIR . 'assets/ext/meta-box/meta-box.php';
+			if (!function_exists('emd_mb_meta')) {
+				require_once YT_SCASE_COM_PLUGIN_DIR . 'assets/ext/emd-meta-box/emd-meta-box.php';
 			}
 			if (!function_exists('emd_translate_date_format')) {
-				require_once UTUBE_SCASE_PLUGIN_DIR . 'includes/date-functions.php';
+				require_once YT_SCASE_COM_PLUGIN_DIR . 'includes/date-functions.php';
 			}
 			if (!function_exists('emd_limit_author_search')) {
-				require_once UTUBE_SCASE_PLUGIN_DIR . 'includes/common-functions.php';
+				require_once YT_SCASE_COM_PLUGIN_DIR . 'includes/common-functions.php';
 			}
 			if (!class_exists('Emd_Entity')) {
-				require_once UTUBE_SCASE_PLUGIN_DIR . 'includes/entities/class-emd-entity.php';
+				require_once YT_SCASE_COM_PLUGIN_DIR . 'includes/entities/class-emd-entity.php';
 			}
 			if (!function_exists('emd_get_template_part')) {
-				require_once UTUBE_SCASE_PLUGIN_DIR . 'includes/layout-functions.php';
+				require_once YT_SCASE_COM_PLUGIN_DIR . 'includes/layout-functions.php';
 			}
 			if (!class_exists('EDD_SL_Plugin_Updater')) {
-				require_once UTUBE_SCASE_PLUGIN_DIR . 'assets/ext/edd/EDD_SL_Plugin_Updater.php';
+				require_once YT_SCASE_COM_PLUGIN_DIR . 'assets/ext/edd/EDD_SL_Plugin_Updater.php';
 			}
 			if (!class_exists('Emd_License')) {
-				require_once UTUBE_SCASE_PLUGIN_DIR . 'includes/admin/class-emd-license.php';
+				require_once YT_SCASE_COM_PLUGIN_DIR . 'includes/admin/class-emd-license.php';
 			}
 			if (!function_exists('emd_show_license_page')) {
-				require_once UTUBE_SCASE_PLUGIN_DIR . 'includes/admin/license-functions.php';
+				require_once YT_SCASE_COM_PLUGIN_DIR . 'includes/admin/license-functions.php';
 			}
 			//the rest
 			if (!class_exists('Emd_Query')) {
-				require_once UTUBE_SCASE_PLUGIN_DIR . 'includes/class-emd-query.php';
+				require_once YT_SCASE_COM_PLUGIN_DIR . 'includes/class-emd-query.php';
 			}
 			if (!function_exists('emd_shc_get_layout_list')) {
-				require_once UTUBE_SCASE_PLUGIN_DIR . 'includes/shortcode-functions.php';
+				require_once YT_SCASE_COM_PLUGIN_DIR . 'includes/shortcode-functions.php';
 			}
 			if (!class_exists('Emd_Widget')) {
-				require_once UTUBE_SCASE_PLUGIN_DIR . 'includes/class-emd-widget.php';
+				require_once YT_SCASE_COM_PLUGIN_DIR . 'includes/class-emd-widget.php';
 			}
 			//app specific files
 			if (is_admin()) {
 				//these files are in all apps
 				if (!function_exists('emd_display_store')) {
-					require_once UTUBE_SCASE_PLUGIN_DIR . 'includes/admin/store-functions.php';
+					require_once YT_SCASE_COM_PLUGIN_DIR . 'includes/admin/store-functions.php';
 				}
 				//the rest
 				if (!function_exists('emd_shc_button')) {
-					require_once UTUBE_SCASE_PLUGIN_DIR . 'includes/admin/wpas-btn-functions.php';
+					require_once YT_SCASE_COM_PLUGIN_DIR . 'includes/admin/wpas-btn-functions.php';
 				}
-				require_once UTUBE_SCASE_PLUGIN_DIR . 'includes/admin/misc-functions.php';
-				require_once UTUBE_SCASE_PLUGIN_DIR . 'includes/admin/glossary.php';
+				require_once YT_SCASE_COM_PLUGIN_DIR . 'includes/admin/misc-functions.php';
+				require_once YT_SCASE_COM_PLUGIN_DIR . 'includes/admin/glossary.php';
 			}
-			require_once UTUBE_SCASE_PLUGIN_DIR . 'includes/integration-shortcodes.php';
-			require_once UTUBE_SCASE_PLUGIN_DIR . 'includes/class-install-deactivate.php';
-			require_once UTUBE_SCASE_PLUGIN_DIR . 'includes/entities/class-emd-video.php';
-			require_once UTUBE_SCASE_PLUGIN_DIR . 'includes/entities/emd-video-shortcodes.php';
-			require_once UTUBE_SCASE_PLUGIN_DIR . 'includes/scripts.php';
-			require_once UTUBE_SCASE_PLUGIN_DIR . 'includes/query-filters.php';
+			require_once YT_SCASE_COM_PLUGIN_DIR . 'includes/integration-shortcodes.php';
+			require_once YT_SCASE_COM_PLUGIN_DIR . 'includes/class-install-deactivate.php';
+			require_once YT_SCASE_COM_PLUGIN_DIR . 'includes/entities/class-emd-video.php';
+			require_once YT_SCASE_COM_PLUGIN_DIR . 'includes/entities/emd-video-shortcodes.php';
+			require_once YT_SCASE_COM_PLUGIN_DIR . 'includes/scripts.php';
+			require_once YT_SCASE_COM_PLUGIN_DIR . 'includes/query-filters.php';
 		}
 		/**
 		 * Loads plugin language files
@@ -153,18 +154,18 @@ if (!class_exists('Youtube_Showcase')):
 			$mofile = sprintf('%1$s-%2$s.mo', $this->textdomain, $locale);
 			$mofile_shared = sprintf('%1$s-emd-plugins-%2$s.mo', $this->textdomain, $locale);
 			$lang_file_list = Array(
-				$this->textdomain . '-emd-plugins' => $mofile_shared,
+				'emd-plugins' => $mofile_shared,
 				$this->textdomain => $mofile
 			);
 			foreach ($lang_file_list as $lang_key => $lang_file) {
-				$localmo = UTUBE_SCASE_PLUGIN_DIR . '/lang/' . $lang_file;
+				$localmo = YT_SCASE_COM_PLUGIN_DIR . '/lang/' . $lang_file;
 				$globalmo = WP_LANG_DIR . '/' . $this->textdomain . '/' . $lang_file;
 				if (file_exists($globalmo)) {
 					load_textdomain($lang_key, $globalmo);
 				} elseif (file_exists($localmo)) {
 					load_textdomain($lang_key, $localmo);
 				} else {
-					load_plugin_textdomain($lang_key, false, UTUBE_SCASE_PLUGIN_DIR . '/lang/');
+					load_plugin_textdomain($lang_key, false, YT_SCASE_COM_PLUGIN_DIR . '/lang/');
 				}
 			}
 		}
@@ -211,6 +212,14 @@ if (!class_exists('Youtube_Showcase')):
 				$this,
 				'display_store_page'
 			));
+			add_submenu_page($this->app_name, __('Designs', $this->textdomain) , __('Designs', $this->textdomain) , 'manage_options', $this->app_name . '_designs', array(
+				$this,
+				'display_design_page'
+			));
+			add_submenu_page($this->app_name, __('Support', $this->textdomain) , __('Support', $this->textdomain) , 'manage_options', $this->app_name . '_support', array(
+				$this,
+				'display_support_page'
+			));
 			$emd_lic_settings = get_option('emd_license_settings', Array());
 			if (!empty($emd_lic_settings)) {
 				foreach ($emd_lic_settings as $key => $val) {
@@ -242,6 +251,12 @@ if (!class_exists('Youtube_Showcase')):
 		public function display_store_page() {
 			emd_display_store($this->textdomain);
 		}
+		public function display_design_page() {
+			emd_display_design($this->textdomain);
+		}
+		public function display_support_page() {
+			emd_display_support($this->textdomain, 2, 'youtube-showcase');
+		}
 		public function display_licenses_page() {
 			do_action('emd_show_license_page', $this->app_name);
 		}
@@ -252,7 +267,7 @@ if (!class_exists('Youtube_Showcase')):
 		 * @return void
 		 */
 		public function include_widgets() {
-			require_once UTUBE_SCASE_PLUGIN_DIR . 'includes/entities/class-emd-video-widgets.php';
+			require_once YT_SCASE_COM_PLUGIN_DIR . 'includes/entities/class-emd-video-widgets.php';
 		}
 	}
 endif;
@@ -261,8 +276,8 @@ endif;
  *
  * @return Youtube_Showcase
  */
-function UTUBE_SCASE() {
+function YT_SCASE_COM() {
 	return Youtube_Showcase::instance();
 }
 // Get the Youtube_Showcase instance
-UTUBE_SCASE();
+YT_SCASE_COM();

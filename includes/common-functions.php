@@ -193,7 +193,7 @@ function emd_parse_template_tags($app, $message, $pid) {
 			if (in_array($match_tag, array_keys($builtins))) {
 				$message = str_replace('{' . $match_tag . '}', $builtins[$match_tag], $message);
 			} elseif (preg_match('/^wpas_/', $match_tag)) {
-				$message = str_replace('{' . $match_tag . '}', rwmb_meta($match_tag, array() , $pid) , $message);
+				$message = str_replace('{' . $match_tag . '}', emd_mb_meta($match_tag, array() , $pid) , $message);
 			} elseif (preg_match('/^emd_/', $match_tag)) {
 				$new = emd_get_attr_val($app, $pid, $mypost->post_type, $match_tag);
 				$message = str_replace('{' . $match_tag . '}', $new, $message);
@@ -254,14 +254,14 @@ function emd_get_attr_val($app, $pid, $ptype, $attr_id) {
 			$mult = 1;
 		}
 		if ($dtype == 'checkbox_list' || $dtype == 'select' && $mult == 1) {
-			$rwmb_list = rwmb_meta($attr_id, 'type=checkbox_list', $pid);
-			if (!empty($rwmb_list)) {
-				$val = implode(', ', $rwmb_list);
+			$emd_mb_list = emd_mb_meta($attr_id, 'type=checkbox_list', $pid);
+			if (!empty($emd_mb_list)) {
+				$val = implode(', ', $emd_mb_list);
 			}
 		} elseif ($dtype == 'file') {
-			$rwmb_file = rwmb_meta($attr_id, 'type=file', $pid);
-			if (!empty($rwmb_file)) {
-				foreach ($rwmb_file as $info) {
+			$emd_mb_file = emd_mb_meta($attr_id, 'type=file', $pid);
+			if (!empty($emd_mb_file)) {
+				foreach ($emd_mb_file as $info) {
 					$val.= "<a href='" . $info['url'] . "' title='" . $info['title'] . "'>" . $info['name'] . "</a><br/>";
 				}
 			}
@@ -270,7 +270,7 @@ function emd_get_attr_val($app, $pid, $ptype, $attr_id) {
 			'plupload_image',
 			'thickbox_image'
 		))) {
-			$images = rwmb_meta($attr_id, 'type=plupload_image', $pid);
+			$images = emd_mb_meta($attr_id, 'type=plupload_image', $pid);
 			if (!empty($images)) {
 				foreach ($images as $image) {
 					$val.= "<a href='" . $image['full_url'] . "' title='" . $image['title'] . "' rel=\'thickbox\'>
@@ -282,9 +282,9 @@ function emd_get_attr_val($app, $pid, $ptype, $attr_id) {
 			'datetime',
 			'time'
 		))) {
-			$val = emd_translate_date_format($attr, rwmb_meta($attr_id, array() , $pid) , 1);
+			$val = emd_translate_date_format($attr, emd_mb_meta($attr_id, array() , $pid) , 1);
 		} else {
-			$val = rwmb_meta($attr_id, array() , $pid);
+			$val = emd_mb_meta($attr_id, array() , $pid);
 		}
 	}
 	return $val;

@@ -7,7 +7,7 @@ $.validator.addMethod('uniqueAttr',function(val,element){
     url: ajaxurl,
     cache: false,
     async: false,
-    data: {action:'emd_check_unique',data_input:data_input, ptype:pagenow,myapp:'utube_scase'},
+    data: {action:'emd_check_unique',data_input:data_input, ptype:pagenow,myapp:'yt_scase_com'},
     success: function(response)
     {
       unique = response;

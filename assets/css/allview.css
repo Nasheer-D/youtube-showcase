@@ -26,9 +26,7 @@ margin-left:5px;
 margin-top:10px;
 margin-bottom:30px;
 width:100%;
-position:relative}div.emd-container .carousel-indicators .active{
-width:25%}div.emd-container .carousel-indicators .active .panel{
-border:2px solid #39b3d7}div.emd-container .carousel-inner .item.active iframe{
+position:relative}div.emd-container .carousel-inner .item.active iframe{
 border:2px solid #39b3d7;
 border-radius:4px;
 background-color: black;
@@ -53,11 +51,21 @@ height:100px;
 font-size:100px;
 color:#000;
 top:30%} div.emd-container .carousel-control .icon-prev{
-margin-left:-65px}div.emd-container .carousel-control .icon-next{
-margin-right:-65px} div.emd-container .carousel-control{
+margin-left:-5px}div.emd-container .carousel-control .icon-next{
+margin-right:-5px} div.emd-container .carousel-control{
 width:0}div.emd-container .panel-body {
  background-color: #39b3d7;
  color: white;
+ }@media(max-width:767px){
+div.emd-container .carousel-indicators .active{
+width:100%}} @media(min-width:768px){
+div.emd-container .carousel-indicators .active{
+width:50%}} @media(min-width:992px){
+div.emd-container .carousel-indicators .active{
+width:33.33%}} @media(min-width:1200px){
+div.emd-container .carousel-indicators .active{
+width:25%}}#emdvideos{
+ padding:20px;
  }
 div.emd-container .thumbnail {
  position:relative;
@@ -73,4 +81,6 @@ text-align: left;
  margin:0;
  } div.emd-container .carousel-indicators .thumbnail{
  margin:0;
- }
+ }div.emd-container .panel-footer {
+overflow:hidden;
+}

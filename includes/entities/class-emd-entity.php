@@ -104,7 +104,7 @@ class Emd_Entity {
 					$uniq_keys = $ent_list[$this->post_type]['unique_keys'];
 					$new_title = '';
 					foreach ($uniq_keys as $mykey) {
-						$tpart = rwmb_meta($mykey, Array() , $post_id);
+						$tpart = emd_mb_meta($mykey, Array() , $post_id);
 						if(!empty($tpart)){
 							$new_title.= $tpart . " - ";
 						}

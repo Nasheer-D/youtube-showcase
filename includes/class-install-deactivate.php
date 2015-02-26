@@ -1,29 +1,29 @@
 <?php
 /**
  * Install and Deactivate Plugin Functions
- * @package UTUBE_SCASE
- * @version 1.0.1
+ * @package YT_SCASE_COM
+ * @version 1.1
  * @since WPAS 4.0
  */
 if (!defined('ABSPATH')) exit;
-if (!class_exists('Utube_Scase_Install_Deactivate')):
+if (!class_exists('Yt_Scase_Com_Install_Deactivate')):
 	/**
-	 * Utube_Scase_Install_Deactivate Class
+	 * Yt_Scase_Com_Install_Deactivate Class
 	 * @since WPAS 4.0
 	 */
-	class Utube_Scase_Install_Deactivate {
+	class Yt_Scase_Com_Install_Deactivate {
 		private $option_name;
 		/**
 		 * Hooks for install and deactivation and create options
 		 * @since WPAS 4.0
 		 */
 		public function __construct() {
-			$this->option_name = 'utube_scase';
-			register_activation_hook(UTUBE_SCASE_PLUGIN_FILE, array(
+			$this->option_name = 'yt_scase_com';
+			register_activation_hook(YT_SCASE_COM_PLUGIN_FILE, array(
 				$this,
 				'install'
 			));
-			register_deactivation_hook(UTUBE_SCASE_PLUGIN_FILE, array(
+			register_deactivation_hook(YT_SCASE_COM_PLUGIN_FILE, array(
 				$this,
 				'deactivate'
 			));
@@ -113,7 +113,7 @@ if (!class_exists('Utube_Scase_Install_Deactivate')):
 				'edit_emd_videos' => Array(
 					'administrator'
 				) ,
-				'view_utube_scase_dashboard' => Array(
+				'view_yt_scase_com_dashboard' => Array(
 					'administrator'
 				) ,
 			);
@@ -139,7 +139,7 @@ if (!class_exists('Utube_Scase_Install_Deactivate')):
 			update_option($this->option_name . '_setup_pages', 1);
 			$ent_list = Array(
 				'emd_video' => Array(
-					'label' => __('Videos', 'utube-scase') ,
+					'label' => __('Videos', 'yt-scase-com') ,
 					'unique_keys' => Array(
 						'emd_video_key'
 					)
@@ -150,24 +150,24 @@ if (!class_exists('Utube_Scase_Install_Deactivate')):
 			$shc_list['integrations']['video_gallery'] = Array(
 				'type' => 'integration',
 				'app_dash' => 0,
-				'page_title' => __('Video Gallery', 'utube-scase') ,
+				'page_title' => __('Video Gallery', 'yt-scase-com') ,
 			);
 			$shc_list['shcs']['video_grid'] = Array(
 				"class_name" => "emd_video",
 				"type" => "std",
-				'page_title' => __('Video Grid Gallery', 'utube-scase') ,
+				'page_title' => __('Video Grid Gallery', 'yt-scase-com') ,
 			);
 			if (!empty($shc_list)) {
 				update_option($this->option_name . '_shc_list', $shc_list);
 			}
 			$attr_list['emd_video']['emd_video_key'] = Array(
-				'label' => __('Video Key', 'utube-scase') ,
+				'label' => __('Video Key', 'yt-scase-com') ,
 				'display_type' => 'text',
 				'required' => 1,
 				"type" => "char"
 			);
 			$attr_list['emd_video']['emd_video_featured'] = Array(
-				'label' => __('Featured', 'utube-scase') ,
+				'label' => __('Featured', 'yt-scase-com') ,
 				'display_type' => 'checkbox',
 				'required' => 0,
 				"type" => "binary"
@@ -176,12 +176,12 @@ if (!class_exists('Utube_Scase_Install_Deactivate')):
 				update_option($this->option_name . '_attr_list', $attr_list);
 			}
 			$tax_list['emd_video']['category'] = Array(
-				'label' => __('Categories', 'utube-scase') ,
+				'label' => __('Categories', 'yt-scase-com') ,
 				'default' => '',
 				'type' => 'builtin'
 			);
 			$tax_list['emd_video']['post_tag'] = Array(
-				'label' => __('Tags', 'utube-scase') ,
+				'label' => __('Tags', 'yt-scase-com') ,
 				'default' => '',
 				'type' => 'builtin'
 			);
@@ -194,10 +194,10 @@ if (!class_exists('Utube_Scase_Install_Deactivate')):
 			$emd_activated_plugins = get_option('emd_activated_plugins');
 			if (!$emd_activated_plugins) {
 				update_option('emd_activated_plugins', Array(
-					'utube-scase'
+					'yt-scase-com'
 				));
 			} else {
-				array_push($emd_activated_plugins, 'utube-scase');
+				array_push($emd_activated_plugins, 'yt-scase-com');
 				update_option('emd_activated_plugins', $emd_activated_plugins);
 			}
 			//conf parameters for incoming email
@@ -221,7 +221,7 @@ if (!class_exists('Utube_Scase_Install_Deactivate')):
 			$emd_activated_plugins = get_option('emd_activated_plugins');
 			if (!empty($emd_activated_plugins)) {
 				$emd_activated_plugins = array_diff($emd_activated_plugins, Array(
-					'utube-scase'
+					'yt-scase-com'
 				));
 				update_option('emd_activated_plugins', $emd_activated_plugins);
 			}
@@ -235,8 +235,8 @@ if (!class_exists('Utube_Scase_Install_Deactivate')):
 		 */
 		public function install_notice() {
 			if (get_option($this->option_name . '_setup_pages') == 1) {
-				echo "<div id=\"message\" class=\"updated\"><p><strong>" . __('Welcome to Youtube Showcase', 'utube-scase') . "</strong></p>
-           <p class=\"submit\"><a href=\"" . add_query_arg('setup_utube_scase_pages', 'true', admin_url('index.php')) . "\" class=\"button-primary\">" . __('Setup Youtube Showcase Pages', 'utube-scase') . "</a> <a class=\"skip button-primary\" href=\"" . add_query_arg('skip_setup_utube_scase_pages', 'true', admin_url('index.php')) . "\">" . __('Skip setup', 'utube-scase') . "</a></p>
+				echo "<div id=\"message\" class=\"updated\"><p><strong>" . __('Welcome to Youtube Showcase', 'yt-scase-com') . "</strong></p>
+           <p class=\"submit\"><a href=\"" . add_query_arg('setup_yt_scase_com_pages', 'true', admin_url('index.php')) . "\" class=\"button-primary\">" . __('Setup Youtube Showcase Pages', 'yt-scase-com') . "</a> <a class=\"skip button-primary\" href=\"" . add_query_arg('skip_setup_yt_scase_com_pages', 'true', admin_url('index.php')) . "\">" . __('Skip setup', 'yt-scase-com') . "</a></p>
          </div>";
 			}
 		}
@@ -287,7 +287,7 @@ if (!class_exists('Utube_Scase_Install_Deactivate')):
 					$page_id = wp_insert_post($page_data);
 				}
 				delete_option($this->option_name . '_setup_pages');
-				wp_redirect(admin_url('index.php?utube-scase-installed=true'));
+				wp_redirect(admin_url('index.php?yt-scase-com-installed=true'));
 				exit;
 			}
 			if (!empty($_GET['skip_setup_' . $this->option_name . '_pages'])) {
@@ -302,4 +302,4 @@ if (!class_exists('Utube_Scase_Install_Deactivate')):
 		}
 	}
 endif;
-return new Utube_Scase_Install_Deactivate();
+return new Yt_Scase_Com_Install_Deactivate();

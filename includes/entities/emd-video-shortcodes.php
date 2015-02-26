@@ -2,8 +2,8 @@
 /**
  * Entity Related Shortcode Functions
  *
- * @package UTUBE_SCASE
- * @version 1.0.1
+ * @package YT_SCASE_COM
+ * @version 1.1
  * @since WPAS 4.0
  */
 if (!defined('ABSPATH')) exit;
@@ -18,9 +18,9 @@ if (!defined('ABSPATH')) exit;
  *
  * @return html
  */
-function utube_scase_video_items_set_shc($atts, $args = Array() , $form_name = '', $pageno = 1) {
+function yt_scase_com_video_items_set_shc($atts, $args = Array() , $form_name = '', $pageno = 1) {
 	$fields = Array(
-		'app' => 'utube_scase',
+		'app' => 'yt_scase_com',
 		'class' => 'emd_video',
 		'shc' => 'video_items',
 		'form' => $form_name,
@@ -42,7 +42,7 @@ function video_items_list($atts) {
 	$show_shc = 1;
 	if ($show_shc == 1) {
 		$list = "<div class='emd-container'>";
-		$list.= utube_scase_video_items_set_shc($atts);
+		$list.= yt_scase_com_video_items_set_shc($atts);
 		$list.= "</div>";
 	} else {
 		$list = '<div class="alert alert-info not-authorized">You are not authorized to access this content.</div>';
@@ -60,9 +60,9 @@ function video_items_list($atts) {
  *
  * @return html
  */
-function utube_scase_video_indicators_set_shc($atts, $args = Array() , $form_name = '', $pageno = 1) {
+function yt_scase_com_video_indicators_set_shc($atts, $args = Array() , $form_name = '', $pageno = 1) {
 	$fields = Array(
-		'app' => 'utube_scase',
+		'app' => 'yt_scase_com',
 		'class' => 'emd_video',
 		'shc' => 'video_indicators',
 		'form' => $form_name,
@@ -84,7 +84,7 @@ function video_indicators_list($atts) {
 	$show_shc = 1;
 	if ($show_shc == 1) {
 		$list = "<div class='emd-container'>";
-		$list.= utube_scase_video_indicators_set_shc($atts);
+		$list.= yt_scase_com_video_indicators_set_shc($atts);
 		$list.= "</div>";
 	} else {
 		$list = '<div class="alert alert-info not-authorized">You are not authorized to access this content.</div>';
@@ -102,9 +102,9 @@ function video_indicators_list($atts) {
  *
  * @return html
  */
-function utube_scase_video_grid_set_shc($atts, $args = Array() , $form_name = '', $pageno = 1) {
+function yt_scase_com_video_grid_set_shc($atts, $args = Array() , $form_name = '', $pageno = 1) {
 	$fields = Array(
-		'app' => 'utube_scase',
+		'app' => 'yt_scase_com',
 		'class' => 'emd_video',
 		'shc' => 'video_grid',
 		'form' => $form_name,
@@ -126,7 +126,7 @@ function video_grid_list($atts) {
 	$show_shc = 1;
 	if ($show_shc == 1) {
 		$list = "<div class='emd-container'>";
-		$list.= utube_scase_video_grid_set_shc($atts);
+		$list.= yt_scase_com_video_grid_set_shc($atts);
 		$list.= "</div>";
 	} else {
 		$list = '<div class="alert alert-info not-authorized">You are not authorized to access this content.</div>';

@@ -2,12 +2,12 @@
 /**
  * Misc Admin Functions
  *
- * @package UTUBE_SCASE
- * @version 1.0.1
+ * @package YT_SCASE_COM
+ * @version 1.1
  * @since WPAS 4.0
  */
 if (!defined('ABSPATH')) exit;
-add_action('edit_form_advanced', 'utube_scase_force_post_builtin');
+add_action('edit_form_advanced', 'yt_scase_com_force_post_builtin');
 /**
  * Add required js check for builtin fields and taxonomies
  *
@@ -15,7 +15,7 @@ add_action('edit_form_advanced', 'utube_scase_force_post_builtin');
  *
  * @return js
  */
-function utube_scase_force_post_builtin() {
+function yt_scase_com_force_post_builtin() {
 	$post = get_post();
 	if (in_array($post->post_type, Array(
 		'emd_video'
@@ -29,7 +29,7 @@ function utube_scase_force_post_builtin() {
    var title = jQuery('[id^="titlediv"]').find('#title');
    if(title.val().length < 1) {
        jQuery('#title').addClass('error');
-       msg.push('<?php _e('Title', 'utube-scase'); ?>');
+       msg.push('<?php _e('Title', 'yt-scase-com'); ?>');
    }
 <?php
 		} ?>
@@ -40,7 +40,7 @@ function utube_scase_force_post_builtin() {
               jQuery('#publish').removeClass('button-primary-disabled');
               jQuery('#ajax-loading').attr( 'style','');
               jQuery('#post').siblings('#message').remove();
-              jQuery('#post').before('<div id="message" class="error"><p>'+msg.join(', ')+' <?php _e('required', 'utube-scase'); ?>.</p></div>');
+              jQuery('#post').before('<div id="message" class="error"><p>'+msg.join(', ')+' <?php _e('required', 'yt-scase-com'); ?>.</p></div>');
               return false; 
            }
        }); 

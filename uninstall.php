@@ -4,29 +4,29 @@
  *
  * Uninstalling deletes notifications and terms initializations
  *
- * @package UTUBE_SCASE
- * @version 1.0.1
+ * @package YT_SCASE_COM
+ * @version 1.1
  * @since WPAS 4.0
  */
 if (!defined('WP_UNINSTALL_PLUGIN')) exit;
 if (!current_user_can('activate_plugins')) return;
-function utube_scase_uninstall() {
+function yt_scase_com_uninstall() {
 	//delete options
 	$options_to_delete = Array(
-		'utube_scase_notify_list',
-		'utube_scase_ent_list',
-		'utube_scase_attr_list',
-		'utube_scase_shc_list',
-		'utube_scase_tax_list',
-		'utube_scase_rel_list',
-		'utube_scase_license_key',
-		'utube_scase_license_status',
-		'utube_scase_comment_list',
-		'utube_scase_access_views',
-		'utube_scase_limitby_auth_caps',
-		'utube_scase_limitby_caps',
-		'utube_scase_has_limitby_cap',
-		'utube_scase_setup_pages'
+		'yt_scase_com_notify_list',
+		'yt_scase_com_ent_list',
+		'yt_scase_com_attr_list',
+		'yt_scase_com_shc_list',
+		'yt_scase_com_tax_list',
+		'yt_scase_com_rel_list',
+		'yt_scase_com_license_key',
+		'yt_scase_com_license_status',
+		'yt_scase_com_comment_list',
+		'yt_scase_com_access_views',
+		'yt_scase_com_limitby_auth_caps',
+		'yt_scase_com_limitby_caps',
+		'yt_scase_com_has_limitby_cap',
+		'yt_scase_com_setup_pages'
 	);
 	if (!empty($options_to_delete)) {
 		foreach ($options_to_delete as $option) {
@@ -36,7 +36,7 @@ function utube_scase_uninstall() {
 	$emd_activated_plugins = get_option('emd_activated_plugins');
 	if (!empty($emd_activated_plugins)) {
 		$emd_activated_plugins = array_diff($emd_activated_plugins, Array(
-			'utube-scase'
+			'yt-scase-com'
 		));
 		update_option('emd_activated_plugins', $emd_activated_plugins);
 	}
@@ -47,10 +47,10 @@ if (is_multisite()) {
 	if ($blogs) {
 		foreach ($blogs as $blog) {
 			switch_to_blog($blog['blog_id']);
-			utube_scase_uninstall();
+			yt_scase_com_uninstall();
 		}
 		restore_current_blog();
 	}
 } else {
-	utube_scase_uninstall();
+	yt_scase_com_uninstall();
 }

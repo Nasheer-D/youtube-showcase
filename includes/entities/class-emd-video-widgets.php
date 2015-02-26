@@ -2,8 +2,8 @@
 /**
  * Entity Widget Classes
  *
- * @package UTUBE_SCASE
- * @version 1.0.1
+ * @package YT_SCASE_COM
+ * @version 1.1
  * @since WPAS 4.0
  */
 if (!defined('ABSPATH')) exit;
@@ -12,15 +12,15 @@ if (!defined('ABSPATH')) exit;
  *
  * @since WPAS 4.0
  */
-class utube_scase_recent_videos_widget extends Emd_Widget {
+class yt_scase_com_recent_videos_widget extends Emd_Widget {
 	public $title;
-	public $text_domain = 'utube-scase';
+	public $text_domain = 'yt-scase-com';
 	public $class_label;
 	public $class = 'emd_video';
 	public $type = 'entity';
 	public $has_pages = false;
 	public $css_label = 'recent-videos';
-	public $id = 'utube_scase_recent_videos_widget';
+	public $id = 'yt_scase_com_recent_videos_widget';
 	public $query_args = array(
 		'post_type' => 'emd_video',
 		'post_status' => 'publish',
@@ -33,8 +33,8 @@ class utube_scase_recent_videos_widget extends Emd_Widget {
 	 *
 	 * @since WPAS 4.0
 	 */
-	function utube_scase_recent_videos_widget() {
-		$this->Emd_Widget(__('Recent Videos', 'utube-scase') , __('Videos', 'utube-scase') , __('The most recent videos', 'utube-scase'));
+	function yt_scase_com_recent_videos_widget() {
+		$this->Emd_Widget(__('Recent Videos', 'yt-scase-com') , __('Videos', 'yt-scase-com') , __('The most recent videos', 'yt-scase-com'));
 	}
 	/**
 	 * Returns widget layout
@@ -42,7 +42,7 @@ class utube_scase_recent_videos_widget extends Emd_Widget {
 	 * @since WPAS 4.0
 	 */
 	public static function layout() {
-		$layout = "<div class=\"thumbnail\"><a class=\"thumbnail-link\" href=\"" . get_permalink() . "\"><img src=\"https://img.youtube.com/vi/" . esc_html(rwmb_meta('emd_video_key')) . "/maxresdefault.jpg\" alt=\"" . get_the_title() . "\">" . get_the_title() . "</a></div>";
+		$layout = "<div class=\"thumbnail\"><a class=\"thumbnail-link\" href=\"" . get_permalink() . "\"><img src=\"https://img.youtube.com/vi/" . esc_html(emd_mb_meta('emd_video_key')) . "/maxresdefault.jpg\" alt=\"" . get_the_title() . "\">" . get_the_title() . "</a></div>";
 		return $layout;
 	}
 }
@@ -51,15 +51,15 @@ class utube_scase_recent_videos_widget extends Emd_Widget {
  *
  * @since WPAS 4.0
  */
-class utube_scase_featured_videos_widget extends Emd_Widget {
+class yt_scase_com_featured_videos_widget extends Emd_Widget {
 	public $title;
-	public $text_domain = 'utube-scase';
+	public $text_domain = 'yt-scase-com';
 	public $class_label;
 	public $class = 'emd_video';
 	public $type = 'entity';
 	public $has_pages = false;
 	public $css_label = 'featured-videos';
-	public $id = 'utube_scase_featured_videos_widget';
+	public $id = 'yt_scase_com_featured_videos_widget';
 	public $query_args = array(
 		'post_type' => 'emd_video',
 		'post_status' => 'publish',
@@ -72,8 +72,8 @@ class utube_scase_featured_videos_widget extends Emd_Widget {
 	 *
 	 * @since WPAS 4.0
 	 */
-	function utube_scase_featured_videos_widget() {
-		$this->Emd_Widget(__('Featured Videos', 'utube-scase') , __('Videos', 'utube-scase') , __('The most recent videos', 'utube-scase'));
+	function yt_scase_com_featured_videos_widget() {
+		$this->Emd_Widget(__('Featured Videos', 'yt-scase-com') , __('Videos', 'yt-scase-com') , __('The most recent videos', 'yt-scase-com'));
 	}
 	/**
 	 * Returns widget layout
@@ -81,14 +81,14 @@ class utube_scase_featured_videos_widget extends Emd_Widget {
 	 * @since WPAS 4.0
 	 */
 	public static function layout() {
-		$layout = "<div class=\"thumbnail\"><a class=\"thumbnail-link\" href=\"" . get_permalink() . "\"><img src=\"https://img.youtube.com/vi/" . esc_html(rwmb_meta('emd_video_key')) . "/maxresdefault.jpg\" alt=\"" . get_the_title() . "\">" . get_the_title() . "</a></div>";
+		$layout = "<div class=\"thumbnail\"><a class=\"thumbnail-link\" href=\"" . get_permalink() . "\"><img src=\"https://img.youtube.com/vi/" . esc_html(emd_mb_meta('emd_video_key')) . "/maxresdefault.jpg\" alt=\"" . get_the_title() . "\">" . get_the_title() . "</a></div>";
 		return $layout;
 	}
 }
-$access_views = get_option('utube_scase_access_views', Array());
+$access_views = get_option('yt_scase_com_access_views', Array());
 if (empty($access_views['widgets']) || (!empty($access_views['widgets']) && in_array('recent_videos', $access_views['widgets']) && current_user_can('view_recent_videos'))) {
-	register_widget('utube_scase_recent_videos_widget');
+	register_widget('yt_scase_com_recent_videos_widget');
 }
 if (empty($access_views['widgets']) || (!empty($access_views['widgets']) && in_array('featured_videos', $access_views['widgets']) && current_user_can('view_featured_videos'))) {
-	register_widget('utube_scase_featured_videos_widget');
+	register_widget('yt_scase_com_featured_videos_widget');
 }

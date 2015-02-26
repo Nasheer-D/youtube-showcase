@@ -2,8 +2,8 @@
 /**
  * Entity Class
  *
- * @package UTUBE_SCASE
- * @version 1.0.1
+ * @package YT_SCASE_COM
+ * @version 1.1
  * @since WPAS 4.0
  */
 if (!defined('ABSPATH')) exit;
@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
  */
 class Emd_Video extends Emd_Entity {
 	protected $post_type = 'emd_video';
-	protected $textdomain = 'utube-scase';
+	protected $textdomain = 'yt-scase-com';
 	protected $sing_label;
 	protected $plural_label;
 	private $boxes = Array();
@@ -118,7 +118,7 @@ class Emd_Video extends Emd_Entity {
 			case 'plupload_image':
 			case 'image':
 			case 'thickbox_image':
-				$image_list = rwmb_meta($column_id, 'type=image');
+				$image_list = emd_mb_meta($column_id, 'type=image');
 				if (!empty($image_list)) {
 					$value = "";
 					foreach ($image_list as $myimage) {
@@ -128,14 +128,14 @@ class Emd_Video extends Emd_Entity {
 			break;
 			case 'user':
 			case 'user-adv':
-				$user_id = rwmb_meta($column_id);
+				$user_id = emd_mb_meta($column_id);
 				if (!empty($user_id)) {
 					$user_info = get_userdata($user_id);
 					$value = $user_info->display_name;
 				}
 			break;
 			case 'file':
-				$file_list = rwmb_meta($column_id, 'type=file');
+				$file_list = emd_mb_meta($column_id, 'type=file');
 				if (!empty($file_list)) {
 					$value = "";
 					foreach ($file_list as $myfile) {
@@ -145,7 +145,7 @@ class Emd_Video extends Emd_Entity {
 				}
 			break;
 			case 'checkbox_list':
-				$checkbox_list = rwmb_meta($column_id, 'type=checkbox_list');
+				$checkbox_list = emd_mb_meta($column_id, 'type=checkbox_list');
 				if (!empty($checkbox_list)) {
 					$value = implode(', ', $checkbox_list);
 				}
@@ -168,25 +168,25 @@ class Emd_Video extends Emd_Entity {
 	 */
 	public static function register() {
 		$labels = array(
-			'name' => __('Videos', 'utube-scase') ,
-			'singular_name' => __('Video', 'utube-scase') ,
-			'add_new' => __('Add New', 'utube-scase') ,
-			'add_new_item' => __('Add New Video', 'utube-scase') ,
-			'edit_item' => __('Edit Video', 'utube-scase') ,
-			'new_item' => __('New Video', 'utube-scase') ,
-			'all_items' => __('All Videos', 'utube-scase') ,
-			'view_item' => __('View Video', 'utube-scase') ,
-			'search_items' => __('Search Videos', 'utube-scase') ,
-			'not_found' => __('No Videos Found', 'utube-scase') ,
-			'not_found_in_trash' => __('No Videos Found In Trash', 'utube-scase') ,
-			'menu_name' => __('Videos', 'utube-scase') ,
+			'name' => __('Videos', 'yt-scase-com') ,
+			'singular_name' => __('Video', 'yt-scase-com') ,
+			'add_new' => __('Add New', 'yt-scase-com') ,
+			'add_new_item' => __('Add New Video', 'yt-scase-com') ,
+			'edit_item' => __('Edit Video', 'yt-scase-com') ,
+			'new_item' => __('New Video', 'yt-scase-com') ,
+			'all_items' => __('All Videos', 'yt-scase-com') ,
+			'view_item' => __('View Video', 'yt-scase-com') ,
+			'search_items' => __('Search Videos', 'yt-scase-com') ,
+			'not_found' => __('No Videos Found', 'yt-scase-com') ,
+			'not_found_in_trash' => __('No Videos Found In Trash', 'yt-scase-com') ,
+			'menu_name' => __('Videos', 'yt-scase-com') ,
 		);
 		register_post_type('emd_video', array(
 			'labels' => $labels,
 			'public' => true,
 			'publicly_queryable' => true,
 			'show_ui' => true,
-			'description' => __('Videos are YouTube videos identified by Video ID.', 'utube-scase') ,
+			'description' => __('Videos are YouTube videos identified by Video ID.', 'yt-scase-com') ,
 			'show_in_menu' => true,
 			'menu_position' => 6,
 			'has_archive' => true,
@@ -220,30 +220,30 @@ class Emd_Video extends Emd_Entity {
 	public function set_filters() {
 		$search_args = array();
 		$filter_args = array();
-		$this->sing_label = __('Video', 'utube-scase');
-		$this->plural_label = __('Videos', 'utube-scase');
+		$this->sing_label = __('Video', 'yt-scase-com');
+		$this->plural_label = __('Videos', 'yt-scase-com');
 		$this->boxes[] = array(
 			'id' => 'emd_video_info_emd_video_0',
-			'title' => __('Video Info', 'utube-scase') ,
+			'title' => __('Video Info', 'yt-scase-com') ,
 			'pages' => array(
 				'emd_video'
 			) ,
 			'context' => 'normal',
 			'fields' => array(
 				'emd_video_key' => array(
-					'name' => __('Video Key', 'utube-scase') ,
+					'name' => __('Video Key', 'yt-scase-com') ,
 					'id' => 'emd_video_key',
 					'type' => 'text',
 					'multiple' => false,
-					'desc' => __('<p>The unique 11 digit alphanumeric video key found on the YouTube video. For example; in https://www.youtube.com/watch?v=uVgWZd7oGOk. uVgWZd7oGOk is the video id.</p>', 'utube-scase') ,
+					'desc' => __('<p>The unique 11 digit alphanumeric video key found on the YouTube video. For example; in https://www.youtube.com/watch?v=uVgWZd7oGOk. uVgWZd7oGOk is the video id.</p>', 'yt-scase-com') ,
 					'class' => 'emd_video_key',
 				) ,
 				'emd_video_featured' => array(
-					'name' => __('Featured', 'utube-scase') ,
+					'name' => __('Featured', 'yt-scase-com') ,
 					'id' => 'emd_video_featured',
 					'type' => 'checkbox',
 					'multiple' => false,
-					'desc' => __('Adds the video to featured video list.', 'utube-scase') ,
+					'desc' => __('Adds the video to featured video list.', 'yt-scase-com') ,
 					'class' => 'emd_video_featured',
 				) ,
 			) ,
@@ -272,9 +272,9 @@ class Emd_Video extends Emd_Entity {
 		}
 		global $pagenow;
 		if ('post-new.php' === $pagenow || 'post.php' === $pagenow) {
-			if (class_exists('RW_Meta_Box') && is_array($this->boxes)) {
+			if (class_exists('EMD_Meta_Box') && is_array($this->boxes)) {
 				foreach ($this->boxes as $meta_box) {
-					new RW_Meta_Box($meta_box);
+					new EMD_Meta_Box($meta_box);
 				}
 			}
 		}
