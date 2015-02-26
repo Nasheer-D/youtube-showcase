@@ -51,11 +51,11 @@ Displays your recently posted videos on the sidebar.
 
 > <strong>Customization using your WP App Studio ProdDev account</strong><br>
 > YouTube Showcase is designed and developed using WP App Studio AUTOBAHN (4.3+) without writing a single line of PHP code. Customize it to your needs by: <br>
-> 1. [Download App signature.](https://wpas.emdplugins.com/designs/)<br>
+> 1. [Download App signature.](https://emdplugins.com/designs/)<br>
 > 2. [Download WP App Studio.](https://wordpress.org/plugins/wp-app-studio/) <br>
-> 3. [Import App signature to WP App Studio AUTOBAHN by clicking on Import button in the app list screen](https://wpas.emdplugins.com/)<br>
-> 4. [Open up a ProDev account.](https://wpas.emdplugins.com/downloads/pro-dev-app/)<br>
-> 5. Click on the app signature imported and change the *app name* and *text domain* to your ProDev *app name* and *text domain* you purchased.<br>
+> 3. [Import App signature to WP App Studio AUTOBAHN by clicking on Import button in the app list screen](https://wpas.emdplugins.com/articles/importing-and-exporting-apps/)<br>
+> 4. [Open up a ProDev account.](https://wpas.emdplugins.com/)<br>
+> 5. Go to WP App Studio menu Applications page Click on the app signature imported and change the *app name* and *text domain* to your ProDev *app name* and *text domain* you purchased.<br>
 > 6. Make modifications to the design and Generate your plugin.<br>
 > 7. Download/Install/Activate your plugin.<br>
 > 8. Set your ProDev license in your plugins setting page, licenses tab. You have 1 year to customize, update your plugin. After initial activation, all other updates are done through WordPress Plugin page like other WP plugins.<br>
