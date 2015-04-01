@@ -308,3 +308,65 @@ function emd_get_meta_operator($opr) {
 	$operators['greater_than_eq'] = '>=';
 	return $operators[$opr];
 }
+add_action('wp_ajax_emd_check_unique','emd_check_unique');
+/**
+ * Check unique keys
+ *
+ * @since WPAS 4.0
+ *
+ * @return bool $response
+ */
+function emd_check_unique() {
+	$response = false;
+	$post_id = '';
+	$form_data = isset($_GET['data_input']) ? $_GET['data_input'] : '';
+	$post_type = isset($_GET['ptype']) ? $_GET['ptype'] : '';
+	$myapp = isset($_GET['myapp']) ? $_GET['myapp'] : '';
+	$ent_list = get_option($myapp . "_ent_list");
+	$uniq_fields = $ent_list[$post_type]['unique_keys'];
+	if(!is_array($form_data)){
+		parse_str(stripslashes($form_data),$form_arr);
+	}
+	else {
+		$form_arr = $form_data;
+	}
+	foreach ($form_arr as $fkey => $myform_field) {
+		if (in_array($fkey, $uniq_fields)) {
+			$data[$fkey] = $myform_field;
+		}
+		if ($fkey == 'post_ID') {
+			$post_id = $myform_field;
+		}
+	}
+	if (!empty($data) && !empty($post_type)) {
+		$response = emd_check_uniq_from_wpdb($data, $post_id, $post_type);
+	}
+	echo $response;
+	die();
+}
+/**
+ * Sql query to check unique keys
+ *
+ * @since WPAS 4.0
+ *
+ * @return bool $response
+ */
+function emd_check_uniq_from_wpdb($data, $post_id, $post_type) {
+	global $wpdb;
+	$where = "";
+	$join = "";
+	$count = 1;
+	foreach ($data as $key => $val) {
+		$join.= " LEFT JOIN " . $wpdb->postmeta . " pm" . $count . " ON p.ID = pm" . $count . ".post_id";
+		$where.= " pm" . $count . ".meta_key='" . $key . "' AND pm" . $count . ".meta_value='" . $val . "' AND ";
+		$count++;
+	}
+	$where = rtrim($where, "AND");
+	$result_arr = $wpdb->get_results("SELECT p.ID FROM " . $wpdb->posts . " p " . $join . " WHERE " . $where . " p.post_type = '" . $post_type . "'", ARRAY_A);
+	if (empty($result_arr)) {
+		return true;
+	} elseif (!empty($post_id) && $result_arr[0]['ID'] == $post_id) {
+		return true;
+	}
+	return false;
+}

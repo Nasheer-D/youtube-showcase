@@ -3,7 +3,7 @@
  * Entity Widget Classes
  *
  * @package YT_SCASE_COM
- * @version 1.1.1
+ * @version 1.2.0
  * @since WPAS 4.0
  */
 if (!defined('ABSPATH')) exit;
@@ -42,7 +42,7 @@ class yt_scase_com_recent_videos_widget extends Emd_Widget {
 	 * @since WPAS 4.0
 	 */
 	public static function layout() {
-		$layout = "<div class=\"thumbnail\"><a class=\"thumbnail-link\" href=\"" . get_permalink() . "\"><img src=\"https://img.youtube.com/vi/" . esc_html(emd_mb_meta('emd_video_key')) . "/maxresdefault.jpg\" alt=\"" . get_the_title() . "\">" . get_the_title() . "</a></div>";
+		$layout = "<a href=\"" . get_permalink() . "\" title=\"" . get_the_title() . "\"><img style=\"width:320px;height:180px;padding:5px\" src=\"https://img.youtube.com/vi/" . esc_html(emd_mb_meta('emd_video_key')) . "/" . esc_html(emd_mb_meta('emd_video_thumbnail_resolution')) . "default.jpg\" alt=\"" . get_the_title() . "\"></a>";
 		return $layout;
 	}
 }
@@ -81,7 +81,7 @@ class yt_scase_com_featured_videos_widget extends Emd_Widget {
 	 * @since WPAS 4.0
 	 */
 	public static function layout() {
-		$layout = "<div class=\"thumbnail\"><a class=\"thumbnail-link\" href=\"" . get_permalink() . "\"><img src=\"https://img.youtube.com/vi/" . esc_html(emd_mb_meta('emd_video_key')) . "/maxresdefault.jpg\" alt=\"" . get_the_title() . "\">" . get_the_title() . "</a></div>";
+		$layout = "<a title=\"" . get_the_title() . "\" href=\"" . get_permalink() . "\"><img style=\"width:320px;height:180px;padding:5px\" src=\"https://img.youtube.com/vi/" . esc_html(emd_mb_meta('emd_video_key')) . "/" . esc_html(emd_mb_meta('emd_video_thumbnail_resolution')) . "default.jpg\" alt=\"" . get_the_title() . "\"></a>";
 		return $layout;
 	}
 }

@@ -34,6 +34,7 @@ if ( ! class_exists( 'EMD_MB_Hidden_Field' ) )
 								break;
 							case  'emd_autoinc':
 								$val = get_option($field['id'] . "_autoinc",$field['autoinc_start']);
+								$val = $val + $field['autoinc_incr'];
 								break;
 						}
 					}
@@ -59,7 +60,6 @@ if ( ! class_exists( 'EMD_MB_Hidden_Field' ) )
 			$name = $field['id'];
 			update_post_meta($post_id, $name, $new);
 			if(isset($field['hidden_func']) && $field['hidden_func'] == 'autoinc'){
-				$new = $new + $field['autoinc_incr'];
 				update_option($name . "_autoinc", $new);
 			}
 		}

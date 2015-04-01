@@ -150,7 +150,7 @@ class Emd_Widget extends WP_Widget {
 			if (isset($args['fname'])) {
 				$layout.= $args['fname']();
 			} else {
-				$layout.= $args['cname']::layout();
+				$layout .= call_user_func(array($args['cname'],"layout"));
 			}
 			$layout.= "</div>";
 		}

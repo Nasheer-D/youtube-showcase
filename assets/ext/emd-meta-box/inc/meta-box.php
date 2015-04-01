@@ -31,6 +31,11 @@ if ( ! class_exists( 'EMD_Meta_Box' ) )
 		 */
 		public $validation;
 
+		/**
+		 * @var array conditional information
+		 */
+		public $conditional;
+
 		public $saved = false;
 
 		/**
@@ -52,6 +57,7 @@ if ( ! class_exists( 'EMD_Meta_Box' ) )
 			$this->meta_box   = self::normalize( $meta_box );
 			$this->fields     = &$this->meta_box['fields'];
 			$this->validation = &$this->meta_box['validation'];
+			$this->conditional = &$this->meta_box['conditional'];
 
 			// Allow users to show/hide meta box
 			// 1st action applies to all meta boxes
@@ -136,11 +142,15 @@ if ( ! class_exists( 'EMD_Meta_Box' ) )
 			if ( $has_clone )
 				wp_enqueue_script( 'emd-mb-clone', EMD_MB_JS_URL . 'clone.js', array( 'jquery' ), EMD_MB_VER, true );
 
-			if ( $this->validation )
+			if ($this->validation || ( $this->validation  && $this->conditional))
 			{
 				wp_enqueue_script( 'jquery-validate', EMD_MB_URL . '../jvalidate1111/wpas.validate.min.js', array( 'jquery' ), EMD_MB_VER, true );
-				wp_enqueue_script( 'emd-mb-validate', EMD_MB_JS_URL . 'validate.js', array( 'jquery-validate' ), EMD_MB_VER, true );
-				wp_localize_script('emd-mb-validate','validate_msg',$jqvalid_msg);
+				wp_enqueue_script( 'emd-mb-validate-cond', EMD_MB_JS_URL . 'validate-cond.js', array( 'jquery-validate' ), EMD_MB_VER, true );
+				wp_localize_script('emd-mb-validate-cond','validate_msg',$jqvalid_msg);
+			}
+			else if($this->conditional)
+			{
+				wp_enqueue_script( 'emd-mb-validate-cond', EMD_MB_JS_URL . 'validate-cond.js', array(),EMD_MB_VER, true );
 			}
 
 			// Auto save
@@ -244,23 +254,44 @@ if ( ! class_exists( 'EMD_Meta_Box' ) )
 			}
 
 			// Include validation settings for this meta-box
-			if ( isset( $this->validation ) && $this->validation )
+
+			if((isset( $this->validation ) && $this->validation)  || (isset($this->conditional) && $this->conditional))
 			{
 				echo '
-					<script>
-					if ( typeof emd_mb == "undefined" )
-					{
-						var emd_mb = {
-							validationOptions : jQuery.parseJSON( \'' . json_encode( $this->validation ) . '\' ),
-							summaryMessage : "' . __( 'Please correct the errors highlighted below and try again.', 'emd-plugins' ) . '"
-						};
-					}
-					else
-					{
-						var tempOptions = jQuery.parseJSON( \'' . json_encode( $this->validation ) . '\' );
-						jQuery.extend( true, emd_mb.validationOptions, tempOptions );
+				<script>
+				if ( typeof emd_mb == "undefined" ) {
+					var emd_mb = {	';
+			}
+			if(isset( $this->validation ) && $this->validation){
+				echo '
+					validationOptions : jQuery.parseJSON( \'' . json_encode( $this->validation ) . '\' ),
+					summaryMessage : "' . __( 'Please correct the errors highlighted below and try again.', 'emd-plugins' ) . '",';
+			}
+			if(isset($this->conditional) && $this->conditional){
+				echo 'conditional: jQuery.parseJSON( \'' . json_encode($this->conditional) . '\' ),';
+			}
+			if((isset( $this->validation ) && $this->validation)  || (isset($this->conditional) && $this->conditional))
+			{
+				echo '	
 					};
-					</script>
+				}
+				else
+				{ ';
+			}
+			if(isset( $this->validation ) && $this->validation){
+				echo '	
+					var tempOptions = jQuery.parseJSON( \'' . json_encode( $this->validation ) . '\' );
+					jQuery.extend( true, emd_mb.validationOptions, tempOptions ); ';
+			}
+			if(isset($this->conditional) && $this->conditional){
+				echo '
+					var tempConditionals = jQuery.parseJSON( \'' . json_encode( $this->conditional ) . '\' );					     jQuery.extend( true, emd_mb.conditional, tempConditionals ); ';	
+			}
+			if((isset( $this->validation ) && $this->validation)  || (isset($this->conditional) && $this->conditional))
+			{	
+				echo '	
+				};
+				</script>
 				';
 			}
 

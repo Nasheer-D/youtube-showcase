@@ -52,6 +52,13 @@ function emd_shc_get_layout_list($atts, $args, $args_default, $fields) {
 	if ($fields['form'] != '') {
 		$_SESSION[$fields['form'] . '_args'] = $args;
 	}
+	$has_limit_by = get_option($fields['app'] . "_has_limitby_cap");
+	if (isset($has_limit_by) && $has_limit_by == 1) {
+		$pids = apply_filters('emd_limit_by', Array() , $fields['app'], $args['post_type']);
+		if(!empty($pids)){
+			$args['post__in'] = $pids;
+		}
+	}
 	$myshc_query = new WP_Query($args);
 	if ($myshc_query->have_posts()) {
 		ob_start();

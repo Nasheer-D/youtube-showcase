@@ -3,7 +3,7 @@
  * Settings Glossary Functions
  *
  * @package YT_SCASE_COM
- * @version 1.1.1
+ * @version 1.2.0
  * @since WPAS 4.0
  */
 if (!defined('ABSPATH')) exit;
@@ -42,7 +42,21 @@ function yt_scase_com_settings_glossary() {
 </tr><tr>
 <th><?php _e('Content', 'yt-scase-com'); ?></th>
 <td><?php _e(' Content does not have a default value. ', 'yt-scase-com'); ?></td>
-</tr></table>
+</tr><tr>
+<th><?php _e('Video Image Resolution', 'yt-scase-com'); ?></th>
+<td>!#trans[<p>Sets the resolution of video thumbnail image. The image size for each option;<br />
+<strong>Medium</strong> - 320 x 180, <strong>High</strong> - 480x360, <strong>Standard</strong> - 640 x 480, <strong>Max</strong> -1280 x 720</p> Video Image Resolution has a default value of <b>'mq'</b>.Video Image Resolution is displayed as a dropdown and has predefined values of: sd, mq, hq, maxres.]#</td>
+</tr><tr>
+<th><?php _e('Category', 'yt-scase-com'); ?></th>
+
+<td><?php _e(' Category supports parent-child relationships like categories', 'yt-scase-com'); ?>. <?php _e('Category does not have a default value', 'yt-scase-com'); ?>.<div class="taxdef-block"><p><?php _e('There are no preset values for <b>Category:</b>', 'yt-scase-com'); ?></p></div></td>
+</tr>
+<tr>
+<th><?php _e('Tag', 'yt-scase-com'); ?></th>
+
+<td><?php _e(' Tag supports parent-child relationships like categories', 'yt-scase-com'); ?>. <?php _e('Tag does not have a default value', 'yt-scase-com'); ?>.<div class="taxdef-block"><p><?php _e('There are no preset values for <b>Tag:</b>', 'yt-scase-com'); ?></p></div></td>
+</tr>
+</table>
 </div>
 </div>
 </li>

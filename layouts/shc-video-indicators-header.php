@@ -1,2 +1,2 @@
 <div class="row">
-    <div class="carousel-indicators visible-lg visible-md">
+    <div class="visible-lg visible-md">

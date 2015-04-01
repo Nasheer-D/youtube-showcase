@@ -3,7 +3,7 @@
  * Entity Class
  *
  * @package YT_SCASE_COM
- * @version 1.1.1
+ * @version 1.2.0
  * @since WPAS 4.0
  */
 if (!defined('ABSPATH')) exit;
@@ -16,7 +16,7 @@ class Emd_Video extends Emd_Entity {
 	protected $textdomain = 'yt-scase-com';
 	protected $sing_label;
 	protected $plural_label;
-	private $boxes = Array();
+	protected $menu_entity;
 	/**
 	 * Initialize entity class
 	 *
@@ -218,10 +218,9 @@ class Emd_Video extends Emd_Entity {
 	 *
 	 */
 	public function set_filters() {
-		$search_args = array();
-		$filter_args = array();
 		$this->sing_label = __('Video', 'yt-scase-com');
 		$this->plural_label = __('Videos', 'yt-scase-com');
+		$this->menu_entity = 'emd_video';
 		$this->boxes[] = array(
 			'id' => 'emd_video_info_emd_video_0',
 			'title' => __('Video Info', 'yt-scase-com') ,
@@ -229,41 +228,8 @@ class Emd_Video extends Emd_Entity {
 				'emd_video'
 			) ,
 			'context' => 'normal',
-			'fields' => array(
-				'emd_video_key' => array(
-					'name' => __('Video Key', 'yt-scase-com') ,
-					'id' => 'emd_video_key',
-					'type' => 'text',
-					'multiple' => false,
-					'desc' => __('<p>The unique 11 digit alphanumeric video key found on the YouTube video. For example; in https://www.youtube.com/watch?v=uVgWZd7oGOk. uVgWZd7oGOk is the video id.</p>', 'yt-scase-com') ,
-					'class' => 'emd_video_key',
-				) ,
-				'emd_video_featured' => array(
-					'name' => __('Featured', 'yt-scase-com') ,
-					'id' => 'emd_video_featured',
-					'type' => 'checkbox',
-					'multiple' => false,
-					'desc' => __('Adds the video to featured video list.', 'yt-scase-com') ,
-					'class' => 'emd_video_featured',
-				) ,
-			) ,
-			'validation' => array(
-				'onfocusout' => false,
-				'onkeyup' => false,
-				'onclick' => false,
-				'rules' => array(
-					'emd_video_key' => array(
-						'required' => true,
-						'minlength' => 11,
-						'maxlength' => 11,
-						'uniqueAttr' => true,
-					) ,
-					'emd_video_featured' => array(
-						'required' => false,
-					) ,
-				) ,
-			)
 		);
+		list($search_args, $filter_args) = $this->set_args_boxes();
 		if (!post_type_exists($this->post_type) || in_array($this->post_type, Array(
 			'post',
 			'page'

@@ -2,7 +2,7 @@
 /**
  * Install and Deactivate Plugin Functions
  * @package YT_SCASE_COM
- * @version 1.1.1
+ * @version 1.2.0
  * @since WPAS 4.0
  */
 if (!defined('ABSPATH')) exit;
@@ -19,6 +19,12 @@ if (!class_exists('Yt_Scase_Com_Install_Deactivate')):
 		 */
 		public function __construct() {
 			$this->option_name = 'yt_scase_com';
+			$curr_version = get_option($this->option_name . '_version', 1);
+			$new_version = constant(strtoupper($this->option_name) . '_VERSION');
+			if (version_compare($curr_version, $new_version, '<')) {
+				$this->set_options();
+				update_option($this->option_name . '_version', $new_version);
+			}
 			register_activation_hook(YT_SCASE_COM_PLUGIN_FILE, array(
 				$this,
 				'install'
@@ -161,16 +167,46 @@ if (!class_exists('Yt_Scase_Com_Install_Deactivate')):
 				update_option($this->option_name . '_shc_list', $shc_list);
 			}
 			$attr_list['emd_video']['emd_video_key'] = Array(
+				'visible' => 1,
 				'label' => __('Video Key', 'yt-scase-com') ,
 				'display_type' => 'text',
 				'required' => 1,
-				"type" => "char"
+				'filterable' => 1,
+				'desc' => __('<p>The unique 11 digit alphanumeric video key found on the YouTube video. For example; in https://www.youtube.com/watch?v=uVgWZd7oGOk. uVgWZd7oGOk is the video id.</p>', 'yt-scase-com') ,
+				'type' => 'char',
+				'minlength' => 11,
+				'maxlength' => 11,
+				'uniqueAttr' => true,
 			);
 			$attr_list['emd_video']['emd_video_featured'] = Array(
+				'visible' => 1,
 				'label' => __('Featured', 'yt-scase-com') ,
 				'display_type' => 'checkbox',
 				'required' => 0,
-				"type" => "binary"
+				'filterable' => 1,
+				'desc' => __('Adds the video to featured video list.', 'yt-scase-com') ,
+				'type' => 'binary',
+				'options' => array(
+					1 => 1
+				) ,
+			);
+			$attr_list['emd_video']['emd_video_thumbnail_resolution'] = Array(
+				'visible' => 1,
+				'label' => __('Video Image Resolution', 'yt-scase-com') ,
+				'display_type' => 'select',
+				'required' => 0,
+				'filterable' => 0,
+				'desc' => __('<p>Sets the resolution of video thumbnail image. The image size for each option;<br />
+<strong>Medium</strong> - 320 x 180, <strong>High</strong> - 480x360, <strong>Standard</strong> - 640 x 480, <strong>Max</strong> -1280 x 720</p>', 'yt-scase-com') ,
+				'type' => 'char',
+				'options' => array(
+					'' => __('Please Select', 'yt-scase-com') ,
+					'sd' => __('Standard', 'yt-scase-com') ,
+					'mq' => __('Medium', 'yt-scase-com') ,
+					'hq' => __('High', 'yt-scase-com') ,
+					'maxres' => __('Max', 'yt-scase-com')
+				) ,
+				'std' => 'mq',
 			);
 			if (!empty($attr_list)) {
 				update_option($this->option_name . '_attr_list', $attr_list);
@@ -196,7 +232,7 @@ if (!class_exists('Yt_Scase_Com_Install_Deactivate')):
 				update_option('emd_activated_plugins', Array(
 					'yt-scase-com'
 				));
-			} else {
+			} elseif (!in_array('yt-scase-com', $emd_activated_plugins)) {
 				array_push($emd_activated_plugins, 'yt-scase-com');
 				update_option('emd_activated_plugins', $emd_activated_plugins);
 			}
@@ -217,6 +253,8 @@ if (!class_exists('Yt_Scase_Com_Install_Deactivate')):
 			delete_option($this->option_name . '_attr_list');
 			delete_option($this->option_name . '_tax_list');
 			delete_option($this->option_name . '_rel_list');
+			delete_option($this->option_name . '_adm_notice1');
+			delete_option($this->option_name . '_adm_notice2');
 			delete_option($this->option_name . '_setup_pages');
 			$emd_activated_plugins = get_option('emd_activated_plugins');
 			if (!empty($emd_activated_plugins)) {
@@ -234,7 +272,31 @@ if (!class_exists('Yt_Scase_Com_Install_Deactivate')):
 		 * @return html
 		 */
 		public function install_notice() {
-			if (get_option($this->option_name . '_setup_pages') == 1) {
+			if (isset($_GET[$this->option_name . '_adm_notice1'])) {
+				update_option($this->option_name . '_adm_notice1', true);
+			}
+			if (current_user_can('manage_options') && get_option($this->option_name . '_adm_notice1') != 1) {
+?>
+<div class="updated">
+<?php
+				printf('<p><a href="%1s" target="_blank"> %2$s </a>%3$s<a style="float:right;" href="%4$s"><span class="dashicons dashicons-dismiss" style="font-size:15px;"></span>%5$s</a></p>', 'https://docs.emdplugins.com/docs/youtube-showcase-community-documentation/?pk_campaign=youtube-showcase&pk_source=plugin&pk_medium=link&pk_content=notice', __('New To Youtube Showcase? Review the documentation!', 'wpas') , __('&#187;', 'wpas') , esc_url(add_query_arg($this->option_name . '_adm_notice1', true)) , __('Dismiss', 'wpas'));
+?>
+</div>
+<?php
+			}
+			if (isset($_GET[$this->option_name . '_adm_notice2'])) {
+				update_option($this->option_name . '_adm_notice2', true);
+			}
+			if (current_user_can('manage_options') && get_option($this->option_name . '_adm_notice2') != 1) {
+?>
+<div class="updated">
+<?php
+				printf('<p><a href="%1s" target="_blank"> %2$s </a>%3$s<a style="float:right;" href="%4$s"><span class="dashicons dashicons-dismiss" style="font-size:15px;"></span>%5$s</a></p>', 'https://emdplugins.com/plugins/youtube-showcase-professional/?pk_campaign=youtube-showcase&pk_source=plugin&pk_medium=link&pk_content=notice', __('Upgrade to Professional Version Now!', 'wpas') , __('&#187;', 'wpas') , esc_url(add_query_arg($this->option_name . '_adm_notice2', true)) , __('Dismiss', 'wpas'));
+?>
+</div>
+<?php
+			}
+			if (current_user_can('manage_options') && get_option($this->option_name . '_setup_pages') == 1) {
 				echo "<div id=\"message\" class=\"updated\"><p><strong>" . __('Welcome to Youtube Showcase', 'yt-scase-com') . "</strong></p>
            <p class=\"submit\"><a href=\"" . add_query_arg('setup_yt_scase_com_pages', 'true', admin_url('index.php')) . "\" class=\"button-primary\">" . __('Setup Youtube Showcase Pages', 'yt-scase-com') . "</a> <a class=\"skip button-primary\" href=\"" . add_query_arg('skip_setup_yt_scase_com_pages', 'true', admin_url('index.php')) . "\">" . __('Skip setup', 'yt-scase-com') . "</a></p>
          </div>";
@@ -251,11 +313,6 @@ if (!class_exists('Yt_Scase_Com_Install_Deactivate')):
 				return;
 			}
 			global $wpdb;
-			$curr_version = get_option($this->option_name . '_version',0);
-			if(version_compare($curr_version, constant(strtoupper($this->option_name) . '_VERSION'), '<')){
-				$this->set_options();
-				update_option($this->option_name . '_version',constant(strtoupper($this->option_name) . '_VERSION'));
-			}
 			if (!empty($_GET['setup_' . $this->option_name . '_pages'])) {
 				$shc_list = get_option($this->option_name . '_shc_list');
 				$types = Array(

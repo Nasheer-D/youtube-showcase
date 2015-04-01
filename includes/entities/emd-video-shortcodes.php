@@ -3,7 +3,7 @@
  * Entity Related Shortcode Functions
  *
  * @package YT_SCASE_COM
- * @version 1.1
+ * @version 1.2.0
  * @since WPAS 4.0
  */
 if (!defined('ABSPATH')) exit;

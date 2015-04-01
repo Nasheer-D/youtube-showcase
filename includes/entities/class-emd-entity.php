@@ -17,6 +17,7 @@ if (!defined('ABSPATH')) exit;
 class Emd_Entity {
 	protected $post_type;
 	protected $textdomain;
+	protected $boxes = Array();
 	/**
 	 * Check to show tabs/accordions in admin entity add/edit pages
 	 * @since WPAS 4.0
@@ -102,14 +103,22 @@ class Emd_Entity {
 				$ent_list = get_option($app . '_ent_list');
 				if (!empty($ent_list[$this->post_type]['unique_keys'])) {
 					$uniq_keys = $ent_list[$this->post_type]['unique_keys'];
-					$new_title = '';
-					foreach ($uniq_keys as $mykey) {
-						$tpart = emd_mb_meta($mykey, Array() , $post_id);
-						if(!empty($tpart)){
-							$new_title.= $tpart . " - ";
-						}
+					if(count($uniq_keys) == 1 && isset($ent_list[$this->post_type]['user_key']) && $ent_list[$this->post_type]['user_key'] == $uniq_keys[0])
+					{
+						$tpart = emd_mb_meta($ent_list[$this->post_type]['user_key'], Array() , $post_id);
+						$user_info = get_userdata($tpart);
+						$new_title = $user_info->display_name;
 					}
-					$new_title = rtrim($new_title, ' - ');
+					else {
+						$new_title = '';
+						foreach ($uniq_keys as $mykey) {
+							$tpart = emd_mb_meta($mykey, Array() , $post_id);
+							if(!empty($tpart)){
+								$new_title.= $tpart . " - ";
+							}
+						}
+						$new_title = rtrim($new_title, ' - ');
+					}
 				}
 				if ($post->post_title == $post_id ||  ($post->post_title != $new_title && $new_title != '')) {
 					remove_action('save_post', array(
@@ -169,7 +178,7 @@ class Emd_Entity {
 ?>
 			<script type="text/javascript">
 			jQuery(document).ready(function($){
-					$('h2 a.add-new-h2').after('<a id="opt-<?php echo str_replace("_", "-", $this->post_type); ?>" class="add-new-h2" href="<?php echo admin_url('edit.php?post_type=' . $this->post_type . '&page=operations_' . $this->post_type); ?>" ><?php _e('Operations', 'emd-plugins'); ?></a>');
+					$('h2 a.add-new-h2').after('<a id="opt-<?php echo str_replace("_", "-", $this->post_type); ?>" class="add-new-h2" href="<?php echo admin_url('edit.php?post_type=' . $this->menu_entity . '&page=operations_' . $this->post_type); ?>" ><?php _e('Operations', 'emd-plugins'); ?></a>');
 					$('li.opt_<?php echo $this->post_type; ?>').html('');
 					});     
 		</script>
@@ -212,5 +221,142 @@ class Emd_Entity {
 			}
 		}
 		delete_option($tax_name . '_children');
+	}
+	/**
+	 * Sets attributes and filter and columns 
+	 * @since WPAS 4.4
+	 *
+	 * @return array $search_args
+	 * @return array $filter_args
+	 *
+	 */
+	protected function set_args_boxes(){
+		$search_args = Array();
+		$filter_args = Array();	
+		$this->boxes[0]['validation'] = array(
+			'onfocusout' => false,
+			'onkeyup' => false,
+			'onclick' => false
+		);
+		$myapp = str_replace("-", "_", $this->textdomain);
+		$attr_list = get_option($myapp . '_attr_list');
+		if (!empty($attr_list[$this->post_type])) {
+			foreach ($attr_list[$this->post_type] as $kattr => $vattr) {
+				if ($vattr['visible'] == 1) {
+					$search_args[$kattr]['name'] = $vattr['label'];
+					$search_args[$kattr]['meta'] = $kattr;
+					$search_args[$kattr]['type'] = $vattr['display_type'];
+					$search_args[$kattr]['cast'] = strtoupper($vattr['type']);
+					if (!empty($vattr['options'])) {
+						$search_args[$kattr]['options'] = $vattr['options'];
+					}
+					if (!empty($vattr['date_format'])) {
+						$search_args[$kattr]['date_format'] = $vattr['date_format'];
+					}
+					if (!empty($vattr['desc'])) {
+						$search_args[$kattr]['desc'] = $vattr['desc'];
+					}
+					$this->boxes[0]['fields'][$kattr]['name'] = $vattr['label'];
+					$this->boxes[0]['fields'][$kattr]['id'] = $kattr;
+					if ($vattr['display_type'] == 'user-adv') {
+						$this->boxes[0]['fields'][$kattr]['type'] = 'user';
+					} else {
+						$this->boxes[0]['fields'][$kattr]['type'] = $vattr['display_type'];
+					}
+					if (isset($vattr['roles'])) {
+						$this->boxes[0]['fields'][$kattr]['query_args']['role'] = $vattr['roles'];
+					}
+					if (isset($vattr['dformat'])) {
+						$this->boxes[0]['fields'][$kattr]['js_options'] = $vattr['dformat'];
+					}
+					$attr_fields = Array(
+						'hidden_func',
+						'no_update',
+						'autoinc_start',
+						'autoinc_incr',
+						'max_file_uploads',
+						'multiple',
+						'desc',
+						'std',
+						'options',
+						'placeholder',
+						'field_type'
+					);
+					foreach ($attr_fields as $attr_field) {
+						if (isset($vattr[$attr_field])) {
+							$this->boxes[0]['fields'][$kattr][$attr_field] = $vattr[$attr_field];
+						}
+					}
+					$this->boxes[0]['fields'][$kattr]['class'] = $kattr;
+					//validation
+					if ($vattr['required'] == 1) {
+						$this->boxes[0]['validation']['rules'][$kattr]['required'] = true;
+					} else {
+						$this->boxes[0]['validation']['rules'][$kattr]['required'] = false;
+					}
+					$valid_rules = Array(
+						'email',
+						'url',
+						'number',
+						'minlength',
+						'maxlength',
+						'digits',
+						'creditcard',
+						'phoneUS',
+						'phoneUK',
+						'letterswithbasicpunc',
+						'alphanumeric',
+						'lettersonly',
+						'nowhitespace',
+						'zipcodeUS',
+						'postcodeUK',
+						'integer',
+						'vinUS',
+						'ipv4',
+						'ipv6',
+						'maxWords',
+						'minWords',
+						'patern',
+						'max',
+						'min',
+						'mobileUK',
+						'uniqueAttr'
+					);
+					foreach ($valid_rules as $vrule) {
+						if (isset($vattr[$vrule])) {
+							$this->boxes[0]['validation']['rules'][$kattr][$vrule] = $vattr[$vrule];
+						}
+					}
+					if(!empty($vattr['conditional'])){
+						$this->boxes[0]['conditional'][$kattr] = $vattr['conditional'];
+						$this->boxes[0]['conditional'][$kattr]['type'] = $vattr['display_type'];
+					}
+					if ($vattr['filterable'] == 1) {
+						$filter_args[$kattr]['name'] = $vattr['label'];
+						$filter_args[$kattr]['meta'] = $kattr;
+						$filter_args[$kattr]['type'] = $vattr['display_type'];
+						$filter_args[$kattr]['cast'] = strtoupper($vattr['type']);
+						if (!empty($vattr['desc'])) {
+							$filter_args[$kattr]['desc'] = $vattr['desc'];
+						}
+						if (!empty($vattr['options'])) {
+							$filter_args[$kattr]['options'] = $vattr['options'];
+						}
+						if (!empty($vattr['user_roles'])) {
+							$filter_args[$kattr]['user_roles'] = $vattr['user_roles'];
+						}
+						if (!empty($vattr['dformat'])) {
+							if (isset($vattr['dformat']['dateFormat'])) {
+								$filter_args[$kattr]['date_format'] = $vattr['dformat']['dateFormat'];
+							}
+							if (isset($vattr['dformat']['timeFormat'])) {
+								$filter_args[$kattr]['time_format'] = $vattr['dformat']['timeFormat'];
+							}
+						}
+					}
+				}
+			}
+		}
+		return Array($search_args,$filter_args);
 	}
 }
