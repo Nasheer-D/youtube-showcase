@@ -2,7 +2,7 @@
 /**
  * Install and Deactivate Plugin Functions
  * @package YT_SCASE_COM
- * @version 1.2.0
+ * @version 1.3.0
  * @since WPAS 4.0
  */
 if (!defined('ABSPATH')) exit;
@@ -43,6 +43,10 @@ if (!class_exists('Yt_Scase_Com_Install_Deactivate')):
 			));
 			add_action('generate_rewrite_rules', 'emd_create_rewrite_rules');
 			add_filter('query_vars', 'emd_query_vars');
+			add_action('admin_init', array(
+				$this,
+				'register_settings'
+			));
 			add_filter('tiny_mce_before_init', array(
 				$this,
 				'tinymce_fix'
@@ -71,6 +75,14 @@ if (!class_exists('Yt_Scase_Com_Install_Deactivate')):
 			flush_rewrite_rules();
 			$this->remove_caps_roles();
 			$this->reset_options();
+		}
+		/**
+		 * Register notification and/or license settings
+		 * @since WPAS 4.0
+		 *
+		 */
+		public function register_settings() {
+			emd_glob_register_settings($this->option_name);
 		}
 		/**
 		 * Sets caps and roles
@@ -148,7 +160,12 @@ if (!class_exists('Yt_Scase_Com_Install_Deactivate')):
 					'label' => __('Videos', 'yt-scase-com') ,
 					'unique_keys' => Array(
 						'emd_video_key'
-					)
+					) ,
+					'req_blt' => Array(
+						'blt_title' => Array(
+							'msg' => __('Title', 'yt-scase-com')
+						) ,
+					) ,
 				) ,
 			);
 			update_option($this->option_name . '_ent_list', $ent_list);
@@ -156,7 +173,7 @@ if (!class_exists('Yt_Scase_Com_Install_Deactivate')):
 			$shc_list['integrations']['video_gallery'] = Array(
 				'type' => 'integration',
 				'app_dash' => 0,
-				'page_title' => __('Video Gallery', 'yt-scase-com') ,
+				'page_title' => __('Video Gallery', 'yt-scase-com')
 			);
 			$shc_list['shcs']['video_grid'] = Array(
 				"class_name" => "emd_video",
@@ -171,7 +188,9 @@ if (!class_exists('Yt_Scase_Com_Install_Deactivate')):
 				'label' => __('Video Key', 'yt-scase-com') ,
 				'display_type' => 'text',
 				'required' => 1,
+				'srequired' => 0,
 				'filterable' => 1,
+				'list_visible' => 1,
 				'desc' => __('<p>The unique 11 digit alphanumeric video key found on the YouTube video. For example; in https://www.youtube.com/watch?v=uVgWZd7oGOk. uVgWZd7oGOk is the video id.</p>', 'yt-scase-com') ,
 				'type' => 'char',
 				'minlength' => 11,
@@ -183,7 +202,9 @@ if (!class_exists('Yt_Scase_Com_Install_Deactivate')):
 				'label' => __('Featured', 'yt-scase-com') ,
 				'display_type' => 'checkbox',
 				'required' => 0,
+				'srequired' => 0,
 				'filterable' => 1,
+				'list_visible' => 1,
 				'desc' => __('Adds the video to featured video list.', 'yt-scase-com') ,
 				'type' => 'binary',
 				'options' => array(
@@ -195,7 +216,9 @@ if (!class_exists('Yt_Scase_Com_Install_Deactivate')):
 				'label' => __('Video Image Resolution', 'yt-scase-com') ,
 				'display_type' => 'select',
 				'required' => 0,
+				'srequired' => 0,
 				'filterable' => 0,
+				'list_visible' => 1,
 				'desc' => __('<p>Sets the resolution of video thumbnail image. The image size for each option;<br />
 <strong>Medium</strong> - 320 x 180, <strong>High</strong> - 480x360, <strong>Standard</strong> - 640 x 480, <strong>Max</strong> -1280 x 720</p>', 'yt-scase-com') ,
 				'type' => 'char',
@@ -208,18 +231,52 @@ if (!class_exists('Yt_Scase_Com_Install_Deactivate')):
 				) ,
 				'std' => 'mq',
 			);
+			$attr_list['emd_video']['emd_video_autoplay'] = Array(
+				'visible' => 1,
+				'label' => __('Video Autoplay', 'yt-scase-com') ,
+				'display_type' => 'checkbox',
+				'required' => 0,
+				'srequired' => 0,
+				'filterable' => 0,
+				'list_visible' => 1,
+				'desc' => __('When set the player starts video automatically. It may not work in all devices due to vendor preferences.', 'yt-scase-com') ,
+				'type' => 'binary',
+				'options' => array(
+					1 => 1
+				) ,
+			);
 			if (!empty($attr_list)) {
 				update_option($this->option_name . '_attr_list', $attr_list);
+			}
+			$glob_list['res_enable_thumbs'] = Array(
+				'label' => __('Enable Thumbnails For Small Screens', 'yt-scase-com') ,
+				'type' => 'checkbox',
+				'desc' => 'Enables or disables thumbnail navigation in video gallery for screens less than 769px.',
+				'values' => '',
+				'dflt' => '',
+				'required' => 0,
+			);
+			if (!empty($glob_list)) {
+				update_option($this->option_name . '_glob_list', $glob_list);
+			}
+			if (!empty($glob_forms_list)) {
+				update_option($this->option_name . '_glob_forms_list', $glob_forms_list);
 			}
 			$tax_list['emd_video']['category'] = Array(
 				'label' => __('Categories', 'yt-scase-com') ,
 				'default' => '',
-				'type' => 'builtin'
+				'type' => 'builtin',
+				'hier' => 1,
+				'required' => 0,
+				'srequired' => 0
 			);
 			$tax_list['emd_video']['post_tag'] = Array(
 				'label' => __('Tags', 'yt-scase-com') ,
 				'default' => '',
-				'type' => 'builtin'
+				'type' => 'builtin',
+				'hier' => 1,
+				'required' => 0,
+				'srequired' => 0
 			);
 			if (!empty($tax_list)) {
 				update_option($this->option_name . '_tax_list', $tax_list);

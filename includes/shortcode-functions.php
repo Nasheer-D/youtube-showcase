@@ -59,68 +59,191 @@ function emd_shc_get_layout_list($atts, $args, $args_default, $fields) {
 			$args['post__in'] = $pids;
 		}
 	}
-	$myshc_query = new WP_Query($args);
-	if ($myshc_query->have_posts()) {
-		ob_start();
-		if (empty($fields['form']) && $fields['theme'] == 'bs') {
-			emd_get_template_part($fields['app'], 'shc', "menu");
-		} ?>
-		<div id='<?php echo esc_attr($fields['shc']) . "_" . esc_attr($fields['class']) . "-view"; ?>' class='emd-view-results'>
-		<input type='hidden' id='emd_entity' name='emd_entity' value='<?php echo esc_attr($fields['class']); ?>'>
-		<input type='hidden' id='emd_view' name='emd_view' value='<?php echo esc_attr($fields['shc']); ?>'>
-		<input type='hidden' id='emd_app' name='emd_app' value='<?php echo esc_attr($fields['app']); ?>'>
-		<?php
-		emd_get_template_part($fields['app'], 'shc', str_replace('_', '-', $fields['shc']) . "-header");
-		$res_posts = Array();
+	if($fields['hier'] == 1){
+                return emd_shc_get_hier_list($args,$fields);
+        }
+	else {
+		$myshc_query = new WP_Query($args);
+		if ($myshc_query->have_posts()) {
+			ob_start();
+			if (empty($fields['form']) && $fields['theme'] == 'bs') {
+				emd_get_template_part($fields['app'], 'shc', "menu");
+			} ?>
+			<div id='<?php echo esc_attr($fields['shc']) . "_" . esc_attr($fields['class']) . "-view"; ?>' class='emd-view-results'>
+			<?php
+			if ($fields['has_pages']) {
+			?>
+			<input type='hidden' id='emd_entity' name='emd_entity' value='<?php echo esc_attr($fields['class']); ?>'>
+			<input type='hidden' id='emd_view' name='emd_view' value='<?php echo esc_attr($fields['shc']); ?>'>
+			<input type='hidden' id='emd_app' name='emd_app' value='<?php echo esc_attr($fields['app']); ?>'>
+			<?php
+			}
+			emd_get_template_part($fields['app'], 'shc', str_replace('_', '-', $fields['shc']) . "-header");
+			$res_posts = Array();
+			$count_var = $fields['shc'] . "_count";
+			global $$count_var;
+			$$count_var = 0;
+			while ($myshc_query->have_posts()) {
+				$myshc_query->the_post();
+				$in_post_id = get_the_ID();
+				if (!in_array($in_post_id, $res_posts)) {
+					$res_posts[] = $in_post_id;
+					emd_get_template_part($fields['app'], 'shc', str_replace('_', '-', $fields['shc']) . "-content");
+					$$count_var++;
+				}
+			}
+			wp_reset_postdata();
+			emd_get_template_part($fields['app'], 'shc', str_replace('_', '-', $fields['shc']) . "-footer");
+			if ($fields['has_pages'] && $myshc_query->max_num_pages > 1) {
+				global $wp_rewrite;
+				if ($wp_rewrite->using_permalinks()) {
+					if (is_front_page()) {
+						$base = '/' . get_post(get_query_var('page_id'))->post_name . '/page/%#%/';
+					}
+					elseif($wp_rewrite->permalink_structure == '/%postname%/'){
+						$base = '/' . get_query_var('pagename') . '/pageno/%#%/';
+					}
+					else {
+						$base = '/' . get_query_var('pagename') . '/page/%#%/';
+					}
+				} else {
+					$base = '/?page_id=' . get_query_var('page_id') . '&pageno=%#%';
+				}
+				$paging = paginate_links(array(
+					'total' => $myshc_query->max_num_pages,
+					'current' => $fields['pageno'],
+					'base' => site_url() . $base,
+					'format' => '%#%',
+					'type' => 'array',
+					'add_args' => true,
+				));
+				$paging_html = emd_shc_get_pagination($fields['theme'], $paging, $fields['pageno'], $fields['pgn_class']); ?>
+				<div class='pagination-bar'>
+				<?php echo $paging_html; ?>
+				</div>
+			<?php
+			} ?>
+			</div>
+			<?php
+			$layout = ob_get_clean();
+			return $layout;
+		}
+	}
+	return '';
+}
+
+/**
+ * Creates hierarchial list
+ *
+ * @since WPAS 4.4
+ * @param array $args
+ * @param array $fields
+ * @return string $layout
+ */
+function emd_shc_get_hier_list($args,$fields){
+        $myshc_query = new WP_Query($args);
+        if ($myshc_query->have_posts()) {
 		$count_var = $fields['shc'] . "_count";
 		global $$count_var;
 		$$count_var = 0;
-		while ($myshc_query->have_posts()) {
-			$myshc_query->the_post();
-			$in_post_id = get_the_ID();
-			if (!in_array($in_post_id, $res_posts)) {
-				$res_posts[] = $in_post_id;
-				emd_get_template_part($fields['app'], 'shc', str_replace('_', '-', $fields['shc']) . "-content");
-				$$count_var++;
+                while ($myshc_query->have_posts()) {
+                        $myshc_query->the_post();
+                        $in_post_id = get_the_ID();
+                        $mypost = get_post($in_post_id);
+                        $mylist[$in_post_id]['parent'] = $mypost->post_parent;
+			$mylist[$in_post_id]['menu_order'] = $mypost->menu_order;
+                        $mylist[$mypost->post_parent]['children'][] = $in_post_id;
+                }
+                wp_reset_postdata();
+		ob_start();
+                emd_get_template_part($fields['app'], 'shc', str_replace('_', '-', $fields['shc']) . "-header");
+		if($fields['hier_type'] != 'none'){
+			echo "<" . $fields['hier_type'] . " class='root parent ";
+			if(isset($fields['hier_class'])){
+				echo $fields['hier_class'];
 			}
+			echo "'>";
 		}
-		wp_reset_postdata();
-		emd_get_template_part($fields['app'], 'shc', str_replace('_', '-', $fields['shc']) . "-footer");
-		if ($fields['has_pages'] && $myshc_query->max_num_pages > 1) {
-			global $wp_rewrite;
-			if ($wp_rewrite->using_permalinks()) {
-				if (is_front_page()) {
-					$base = '/' . get_post(get_query_var('page_id'))->post_name . '/page/%#%/';
+                $root_ch_count = 1;
+                foreach($mylist as $pid => $vals){
+                        //find the highest parent 0
+                        if(isset($vals['parent']) && $vals['parent'] == 0){
+                                global $post;
+                                $post = get_post($pid);
+				if($fields['hier_type'] != 'none'){
+					echo "<li id='root-item-" . $root_ch_count . "' class='item-" . $root_ch_count;
+					if(!empty($vals['children'])){
+						echo " parent";
+					}
+					else {
+						echo " noparent";
+					}
+					echo "'>";
 				}
-				elseif($wp_rewrite->permalink_structure == '/%postname%/'){
-					$base = '/' . get_query_var('pagename') . '/pageno/%#%/';
+                                emd_get_template_part($fields['app'], 'shc', str_replace('_', '-', $fields['shc']) . "-content");
+                                if(!empty($vals['children']) && $fields['hier_depth'] != 0){
+                                        emd_shc_get_hier_children($vals,$mylist,$fields,$root_ch_count,1);
+                                }
+                                $root_ch_count ++;
+				$$count_var++;
+				if($fields['hier_type'] != 'none'){
+                                	echo "</li>";
 				}
-				else {
-					$base = '/' . get_query_var('pagename') . '/page/%#%/';
-				}
-			} else {
-				$base = '/?page_id=' . get_query_var('page_id') . '&pageno=%#%';
-			}
-			$paging = paginate_links(array(
-				'total' => $myshc_query->max_num_pages,
-				'current' => $fields['pageno'],
-				'base' => $base,
-				'format' => '%#%',
-				'type' => 'array',
-				'add_args' => true,
-			));
-			$paging_html = emd_shc_get_pagination($fields['theme'], $paging, $fields['pageno'], $fields['pgn_class']); ?>
-			<div class='pagination-bar'>
-			<?php echo $paging_html; ?>
-			</div>
-		<?php
-		} ?>
-		</div>
-		<?php
+                        }
+                }
+		if($fields['hier_type'] != 'none'){
+                	echo "</" . $fields['hier_type'] . ">";
+		}
 		$layout = ob_get_clean();
 		return $layout;
-	}
+        }
 	return '';
+}
+/**
+ * Creates hierarchial list
+ *
+ * @since WPAS 4.4
+ * @param array $args
+ * @param array $fields
+ * @return string $layout
+ */
+function emd_shc_get_hier_children($vals,$mylist,$fields,$root_id,$cur_depth){
+        global $post;
+	$count_var = $fields['shc'] . "_count";
+	global $$count_var;
+        $list_count = 1;
+	$hier_depth = $fields['hier_depth'] - 1;
+	if($fields['hier_type'] != 'none'){
+        	echo "<" . $fields['hier_type'] . " id='root-item-" . $root_id . "-list-" . $list_count . "' class='list-" . $list_count . "'>";
+	}
+        $ch_count = 1;
+        foreach($vals['children'] as $child){
+                $post = get_post($child);
+		if($fields['hier_type'] != 'none'){
+			echo "<li id='root-item-" . $root_id . "-list-" . $list_count . "-item-" . $ch_count . "' class='item-" . $ch_count;
+			if(!empty($mylist[$child]['children'])){
+				echo " parent";
+			}
+			else {
+				echo " noparent";
+			}
+			echo "'>";
+		}
+		$$count_var++;
+                emd_get_template_part($fields['app'], 'shc', str_replace('_', '-', $fields['shc']) . "-content");
+                if(!empty($mylist[$child]['children']) && (($fields['hier_depth'] != -1 && $hier_depth >= $cur_depth) || $fields['hier_depth'] == -1)){
+			$cur_depth ++;
+                        emd_shc_get_hier_children($mylist[$child],$mylist,$fields,$root_id . "-list". $list_count,$cur_depth);
+                }
+                $ch_count ++;
+		if($fields['hier_type'] != 'none'){
+                	echo "</li>";
+		}
+        }
+        $list_count ++;
+	if($fields['hier_type'] != 'none'){
+        	echo "</" . $fields['hier_type'] . ">";
+	}
 }
 /**
  * Creates pagination html
@@ -133,7 +256,7 @@ function emd_shc_get_layout_list($atts, $args, $args_default, $fields) {
  */
 function emd_shc_get_pagination($type, $paging, $pageno, $pgn_class) {
 	$paging_html = "";
-	if ($type == 'bs') {
+	if ($type == 'bs' || $type == 'na') {
 		$paging_html = "<ul class='pagination " . $pgn_class . "'>";
 		foreach ($paging as $key_paging => $my_paging) {
 			$paging_html.= "<li";
@@ -143,7 +266,7 @@ function emd_shc_get_pagination($type, $paging, $pageno, $pgn_class) {
 			$paging_html.= ">" . $my_paging . "</li>";
 		}
 		$paging_html.= "</ul>";
-	} elseif ($type == 'jui' || $type == 'na') {
+	} elseif ($type == 'jui') {
 		$paging_html = "<div class='nav-pages " . $pgn_class . "'>";
 		foreach ($paging as $key_paging => $my_paging) {
 			$paging_html.= "<div class='nav-item ui-state-default ui-corner-all";

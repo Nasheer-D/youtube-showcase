@@ -7,8 +7,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2015-04-01T14:38:12-04:00\n"
-"POT-Creation-Date: 2015-04-01T14:38:12-04:00\n"
+"PO-Revision-Date: 2015-06-26T19:37:39-04:00\n"
+"POT-Creation-Date: 2015-06-26T19:37:39-04:00\n"
 
 #: ./youtube-showcase/assets/ext/edd/EDD_SL_Plugin_Updater.php:177
 msgid "There is a new version of %1$s available. <a target=\"_blank\" class=\"thickbox\" href=\"%2$s\">View version %3$s details</a>."
@@ -393,71 +393,71 @@ msgstr ""
 msgid "User"
 msgstr ""
 
-#: ./youtube-showcase/assets/ext/emd-meta-box/inc/meta-box.php:103
+#: ./youtube-showcase/assets/ext/emd-meta-box/inc/meta-box.php:107
 msgid "This field is required."
 msgstr ""
 
-#: ./youtube-showcase/assets/ext/emd-meta-box/inc/meta-box.php:104
+#: ./youtube-showcase/assets/ext/emd-meta-box/inc/meta-box.php:108
 msgid "Please fix this field."
 msgstr ""
 
-#: ./youtube-showcase/assets/ext/emd-meta-box/inc/meta-box.php:105
+#: ./youtube-showcase/assets/ext/emd-meta-box/inc/meta-box.php:109
 msgid "Please enter a valid email address."
 msgstr ""
 
-#: ./youtube-showcase/assets/ext/emd-meta-box/inc/meta-box.php:106
+#: ./youtube-showcase/assets/ext/emd-meta-box/inc/meta-box.php:110
 msgid "Please enter a valid URL."
 msgstr ""
 
-#: ./youtube-showcase/assets/ext/emd-meta-box/inc/meta-box.php:107
+#: ./youtube-showcase/assets/ext/emd-meta-box/inc/meta-box.php:111
 msgid "Please enter a valid date."
 msgstr ""
 
-#: ./youtube-showcase/assets/ext/emd-meta-box/inc/meta-box.php:108
+#: ./youtube-showcase/assets/ext/emd-meta-box/inc/meta-box.php:112
 msgid "Please enter a valid date ( ISO )"
 msgstr ""
 
-#: ./youtube-showcase/assets/ext/emd-meta-box/inc/meta-box.php:109
+#: ./youtube-showcase/assets/ext/emd-meta-box/inc/meta-box.php:113
 msgid "Please enter a valid number."
 msgstr ""
 
-#: ./youtube-showcase/assets/ext/emd-meta-box/inc/meta-box.php:110
+#: ./youtube-showcase/assets/ext/emd-meta-box/inc/meta-box.php:114
 msgid "Please enter only digits."
 msgstr ""
 
-#: ./youtube-showcase/assets/ext/emd-meta-box/inc/meta-box.php:111
+#: ./youtube-showcase/assets/ext/emd-meta-box/inc/meta-box.php:115
 msgid "Please enter a valid credit card number."
 msgstr ""
 
-#: ./youtube-showcase/assets/ext/emd-meta-box/inc/meta-box.php:112
+#: ./youtube-showcase/assets/ext/emd-meta-box/inc/meta-box.php:116
 msgid "Please enter the same value again."
 msgstr ""
 
-#: ./youtube-showcase/assets/ext/emd-meta-box/inc/meta-box.php:113
+#: ./youtube-showcase/assets/ext/emd-meta-box/inc/meta-box.php:117
 msgid "Please enter no more than {0} characters."
 msgstr ""
 
-#: ./youtube-showcase/assets/ext/emd-meta-box/inc/meta-box.php:114
+#: ./youtube-showcase/assets/ext/emd-meta-box/inc/meta-box.php:118
 msgid "Please enter at least {0} characters."
 msgstr ""
 
-#: ./youtube-showcase/assets/ext/emd-meta-box/inc/meta-box.php:115
+#: ./youtube-showcase/assets/ext/emd-meta-box/inc/meta-box.php:119
 msgid "Please enter a value between {0} and {1} characters long."
 msgstr ""
 
-#: ./youtube-showcase/assets/ext/emd-meta-box/inc/meta-box.php:116
+#: ./youtube-showcase/assets/ext/emd-meta-box/inc/meta-box.php:120
 msgid "Please enter a value between {0} and {1}."
 msgstr ""
 
-#: ./youtube-showcase/assets/ext/emd-meta-box/inc/meta-box.php:117
+#: ./youtube-showcase/assets/ext/emd-meta-box/inc/meta-box.php:121
 msgid "Please enter a value less than or equal to {0}."
 msgstr ""
 
-#: ./youtube-showcase/assets/ext/emd-meta-box/inc/meta-box.php:118
+#: ./youtube-showcase/assets/ext/emd-meta-box/inc/meta-box.php:122
 msgid "Please enter a value greater than or equal to {0}."
 msgstr ""
 
-#: ./youtube-showcase/assets/ext/emd-meta-box/inc/meta-box.php:268
+#: ./youtube-showcase/assets/ext/emd-meta-box/inc/meta-box.php:272
 msgid "Please correct the errors highlighted below and try again."
 msgstr ""
 
@@ -471,6 +471,110 @@ msgstr ""
 
 #: ./youtube-showcase/includes/admin/license-functions.php:85
 msgid "Activate License"
+msgstr ""
+
+#: ./youtube-showcase/includes/admin/settings-functions.php:31
+msgid "Global"
+msgstr ""
+
+#: ./youtube-showcase/includes/admin/settings-functions.php:36
+msgid "Forms"
+msgstr ""
+
+#: ./youtube-showcase/includes/admin/settings-functions.php:40
+msgid "No settings found."
+msgstr ""
+
+#: ./youtube-showcase/includes/admin/settings-functions.php:45
+msgid "Settings Saved."
+msgstr ""
+
+#: ./youtube-showcase/includes/admin/settings-functions.php:89
+msgid "%s is required."
+msgstr ""
+
+#: ./youtube-showcase/includes/admin/settings-functions.php:227
+msgid "Frontend Map Settings"
+msgstr ""
+
+#: ./youtube-showcase/includes/admin/settings-functions.php:228
+msgid "Width"
+msgstr ""
+
+#: ./youtube-showcase/includes/admin/settings-functions.php:228
+msgid "Sets the map width.You can use '%' or 'px'. Default is 100%."
+msgstr ""
+
+#: ./youtube-showcase/includes/admin/settings-functions.php:229
+msgid "Height"
+msgstr ""
+
+#: ./youtube-showcase/includes/admin/settings-functions.php:229
+msgid "Sets the map height. You can use 'px'. Default is 480px."
+msgstr ""
+
+#: ./youtube-showcase/includes/admin/settings-functions.php:230
+msgid "Zoom"
+msgstr ""
+
+#: ./youtube-showcase/includes/admin/settings-functions.php:239
+msgid "Type"
+msgstr ""
+
+#: ./youtube-showcase/includes/admin/settings-functions.php:249
+msgid "Marker"
+msgstr ""
+
+#: ./youtube-showcase/includes/admin/settings-functions.php:250
+msgid "Marker Title"
+msgstr ""
+
+#: ./youtube-showcase/includes/admin/settings-functions.php:250
+msgid "Sets the marker title when hover."
+msgstr ""
+
+#: ./youtube-showcase/includes/admin/settings-functions.php:251
+msgid "Info Window"
+msgstr ""
+
+#: ./youtube-showcase/includes/admin/settings-functions.php:251
+msgid "Sets the content of the info box. You can use html tags."
+msgstr ""
+
+#: ./youtube-showcase/includes/admin/settings-functions.php:252
+msgid "Display Info Window on Page Load"
+msgstr ""
+
+#: ./youtube-showcase/includes/admin/settings-functions.php:253
+msgid "You can drag and drop the marker to specify the exact location."
+msgstr ""
+
+#: ./youtube-showcase/includes/admin/settings-functions.php:363
+msgid "Use the section below to show or hide corresponding form elements. Size column refers to the form elements length relative to the other elements in the same row. Total element size in each row can not exceed 12 units. When you hide or show an element you may adjust sizes of the other elements in the same row. The form elements which are in the same row are color coded."
+msgstr ""
+
+#: ./youtube-showcase/includes/admin/settings-functions.php:420
+msgid "Show %s"
+msgstr ""
+
+#: ./youtube-showcase/includes/admin/settings-functions.php:448
+msgid "Show Captcha"
+msgstr ""
+
+#: ./youtube-showcase/includes/admin/settings-functions.php:450
+msgid "Never Show"
+msgstr ""
+
+#: ./youtube-showcase/includes/admin/settings-functions.php:451
+msgid "Always Show"
+msgstr ""
+
+#: ./youtube-showcase/includes/admin/settings-functions.php:452
+msgid "Visitors Only"
+msgstr ""
+
+#: ./youtube-showcase/includes/admin/settings-functions.php:470
+msgid "The unique form elements are disabled however you can change their sizes."
 msgstr ""
 
 #: ./youtube-showcase/includes/admin/store-functions.php:22
@@ -510,10 +614,6 @@ msgstr ""
 msgid "Like our plugin? Leave us a review"
 msgstr ""
 
-#: ./youtube-showcase/includes/admin/wpas-btn-functions.php:30
-msgid "Forms"
-msgstr ""
-
 #: ./youtube-showcase/includes/admin/wpas-btn-functions.php:37
 msgid "Standards"
 msgstr ""
@@ -547,20 +647,20 @@ msgstr ""
 msgid "Add WPAS Shortcode"
 msgstr ""
 
-#: ./youtube-showcase/includes/class-emd-widget.php:117
+#: ./youtube-showcase/includes/class-emd-widget.php:113
 msgid "Title"
 msgstr ""
 
-#: ./youtube-showcase/includes/class-emd-widget.php:122
+#: ./youtube-showcase/includes/class-emd-widget.php:118
 msgid "%s to show"
 msgstr ""
 
-#: ./youtube-showcase/includes/class-emd-widget.php:123
+#: ./youtube-showcase/includes/class-emd-widget.php:119
 msgid "Max: 10"
 msgstr ""
 
-#: ./youtube-showcase/includes/class-emd-widget.php:186
-#: ./youtube-showcase/includes/class-emd-widget.php:199
+#: ./youtube-showcase/includes/class-emd-widget.php:188
+#: ./youtube-showcase/includes/class-emd-widget.php:201
 msgid "%1$s on %2$s"
 msgstr ""
 

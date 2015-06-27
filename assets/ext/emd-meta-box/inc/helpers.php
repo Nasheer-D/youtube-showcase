@@ -209,7 +209,12 @@ if ( ! class_exists( 'EMD_MB_Helper' ) )
 			// Get map
 			elseif ( 'map' == $args['type'] )
 			{
-				$meta = self::map( $key, $args, $post_id );
+				$field = array(
+					'id'       => $key,
+					'multiple' => false,
+					'clone'    => false,
+				);
+				$meta = EMD_MB_Map_Field::the_value( $field, $args, $post_id );
 			}
 
 			return apply_filters( __FUNCTION__, $meta, $key, $args, $post_id );

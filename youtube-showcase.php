@@ -3,7 +3,7 @@
  * Plugin Name: Youtube Showcase
  * Plugin URI: https://emarketdesign.com
  * Description: YouTube Showcase is a powerful but simple-to-use YouTube video gallery plugin with responsive frontend.
- * Version: 1.2.0
+ * Version: 1.3.0
  * Author: eMarket Design
  * Author URI: https://emarketdesign.com
  * Text Domain: yt-scase-com
@@ -74,7 +74,7 @@ if (!class_exists('Youtube_Showcase')):
 		 * @return void
 		 */
 		private function define_constants() {
-			define('YT_SCASE_COM_VERSION', '1.2.0');
+			define('YT_SCASE_COM_VERSION', '1.3.0');
 			define('YT_SCASE_COM_AUTHOR', 'eMarket Design');
 			define('YT_SCASE_COM_NAME', 'Youtube Showcase');
 			define('YT_SCASE_COM_PLUGIN_FILE', __FILE__);
@@ -124,6 +124,9 @@ if (!class_exists('Youtube_Showcase')):
 				require_once YT_SCASE_COM_PLUGIN_DIR . 'includes/class-emd-widget.php';
 			}
 			//app specific files
+			if (!function_exists('emd_show_settings_page')) {
+				require_once YT_SCASE_COM_PLUGIN_DIR . 'includes/admin/settings-functions.php';
+			}
 			if (is_admin()) {
 				//these files are in all apps
 				if (!function_exists('emd_display_store')) {
@@ -133,7 +136,6 @@ if (!class_exists('Youtube_Showcase')):
 				if (!function_exists('emd_shc_button')) {
 					require_once YT_SCASE_COM_PLUGIN_DIR . 'includes/admin/wpas-btn-functions.php';
 				}
-				require_once YT_SCASE_COM_PLUGIN_DIR . 'includes/admin/misc-functions.php';
 				require_once YT_SCASE_COM_PLUGIN_DIR . 'includes/admin/glossary.php';
 			}
 			require_once YT_SCASE_COM_PLUGIN_DIR . 'includes/integration-shortcodes.php';
@@ -208,6 +210,10 @@ if (!class_exists('Youtube_Showcase')):
 				'display_glossary_page'
 			));
 			add_submenu_page($this->app_name, __('Glossary', $this->textdomain) , __('Glossary', $this->textdomain) , 'manage_options', $this->app_name);
+			add_submenu_page($this->app_name, __('Settings', $this->textdomain) , __('Settings', $this->textdomain) , 'manage_options', $this->app_name . '_settings', array(
+				$this,
+				'display_settings_page'
+			));
 			add_submenu_page($this->app_name, __('Add-Ons', $this->textdomain) , __('Add-Ons', $this->textdomain) , 'manage_options', $this->app_name . '_store', array(
 				$this,
 				'display_store_page'
@@ -221,6 +227,7 @@ if (!class_exists('Youtube_Showcase')):
 				'display_support_page'
 			));
 			$emd_lic_settings = get_option('emd_license_settings', Array());
+			$show_lic_page = 0;
 			if (!empty($emd_lic_settings)) {
 				foreach ($emd_lic_settings as $key => $val) {
 					if ($key == $this->app_name) {
@@ -259,6 +266,9 @@ if (!class_exists('Youtube_Showcase')):
 		}
 		public function display_licenses_page() {
 			do_action('emd_show_license_page', $this->app_name);
+		}
+		public function display_settings_page() {
+			do_action('emd_show_settings_page', $this->app_name);
 		}
 		/**
 		 * Loads sidebar widgets

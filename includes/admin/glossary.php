@@ -3,7 +3,7 @@
  * Settings Glossary Functions
  *
  * @package YT_SCASE_COM
- * @version 1.2.0
+ * @version 1.3.0
  * @since WPAS 4.0
  */
 if (!defined('ABSPATH')) exit;
@@ -44,8 +44,11 @@ function yt_scase_com_settings_glossary() {
 <td><?php _e(' Content does not have a default value. ', 'yt-scase-com'); ?></td>
 </tr><tr>
 <th><?php _e('Video Image Resolution', 'yt-scase-com'); ?></th>
-<td>!#trans[<p>Sets the resolution of video thumbnail image. The image size for each option;<br />
-<strong>Medium</strong> - 320 x 180, <strong>High</strong> - 480x360, <strong>Standard</strong> - 640 x 480, <strong>Max</strong> -1280 x 720</p> Video Image Resolution has a default value of <b>'mq'</b>.Video Image Resolution is displayed as a dropdown and has predefined values of: sd, mq, hq, maxres.]#</td>
+<td><?php _e('<p>Sets the resolution of video thumbnail image. The image size for each option;<br />
+<strong>Medium</strong> - 320 x 180, <strong>High</strong> - 480x360, <strong>Standard</strong> - 640 x 480, <strong>Max</strong> -1280 x 720</p> Video Image Resolution has a default value of <b>\'mq\'</b>.Video Image Resolution is displayed as a dropdown and has predefined values of: sd, mq, hq, maxres.', 'yt-scase-com'); ?></td>
+</tr><tr>
+<th><?php _e('Video Autoplay', 'yt-scase-com'); ?></th>
+<td><?php _e('When set the player starts video automatically. It may not work in all devices due to vendor preferences. Video Autoplay does not have a default value. ', 'yt-scase-com'); ?></td>
 </tr><tr>
 <th><?php _e('Category', 'yt-scase-com'); ?></th>
 

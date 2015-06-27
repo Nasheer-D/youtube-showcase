@@ -4,8 +4,8 @@ Plugin URI: https://emdplugins.com
 Author URI: https://emarketdesign.com
 Donate link: https://emarketdesign.com/donate-emarket-design/
 Requires at least: 4.0
-Tested up to: 4.2
-Stable tag: 1.2.0
+Tested up to: 4.2.2
+Stable tag: 1.3.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: youtube,video,video gallery,youtube gallery,youtube widget,embed videos,embed youtube,simple youtube,simple videos,simple video gallery,simple gallery,sidebar videos,video plugin,youtube plugin,responsive,video posts,videos,youtube player,featured videos,recent videos,youtube sidebar widget, youtube api, YouTube API,youtube view count,youtube duration,youtube statistics,view count,favorite count,video duration,video statistics,youtube views
@@ -59,7 +59,7 @@ YouTube Showcase Professional edition features:<br>
    * Ability to set video thumbnail image independent of the video owner. If the video is for a single video and the custom image is not set, it uses the YouTube thumbnail image.<br>
    * Advanced admin area video filtering; create/ save filters, sort, reorder, display/hide columns and more.<br>
    * Pick and choose from the available 8 different video stats to display them on the front end.<br>
-   * 6 Responsive Gallery Views to display your videos. Full set all matching each other with look and feel to provide uniform viewing experience.<br>
+   * 9 Responsive Gallery Views to display your videos. Full set all matching each other with look and feel to provide uniform viewing experience.<br>
    * Customize the player with all the options available in YouTube API V3.<br>
    * Custom video comments matching your theme's styles. The video comments don't mix with the post comments and displayed in separate menu.<br>
    * Custom video tagging and categorization. Display your collection with custom video taxonomies. They do not mix with post tag or category taxonomies.<br>
@@ -74,7 +74,7 @@ YouTube Showcase Professional edition features:<br>
 > 1. [Download App signature.](https://emdplugins.com/designs/)<br>
 > 2. [Download WP App Studio.](https://wordpress.org/plugins/wp-app-studio/) <br>
 > 3. [Import App signature to WP App Studio AUTOBAHN by clicking on Import button in the app list screen](https://wpas.emdplugins.com/articles/importing-and-exporting-apps/)<br>
-> 4. [Use your existing ProDev account. You need to purchase ProDev API access if you don't already have one.](https://wpas.emdplugins.com/)<br>
+> 4. [Purchase or use your existing ProDev account. You need to purchase ProDev API access if you don't already have one.](https://wpas.emdplugins.com/)<br>
 > 5. Go to WP App Studio menu Applications page Click on the app signature imported and change the *app name* and *text domain* to your ProDev *app name* and *text domain* you purchased.<br>
 > 6. Make modifications to the design and Generate your plugin.<br>
 > 7. Download/Install/Activate your plugin.<br>
@@ -103,13 +103,17 @@ The simplest way to install is to click on 'Plugins' then 'Add' and type 'Youtub
 
 == Screenshots ==
 1. Displays a responsive video gallery with thumbnail navigation created automatically during plugin setup
-2. Hides thumbnail navigation for devices with screen sizes below 768px
+2. Optionally hide thumbnail navigation for devices with screen sizes below 768px. Enable/disable from settings.
 3. Displays a 4 column responsive video grid gallery created automatically during plugin setup
 4. Each video resides on its own page with WordPress comments enabled, optionally you could display Featured and Recent Sidebar Widgets
 5. Enter your videos using a simple and intuitive interface from admin video editor
-6. Pro Edition offers many advanced video management and display options
+6. YouTube Showcase Pro Edition offers many advanced video management,player configuration, and display options
 
 == Changelog ==
+= 1.3.0 =
+* Added ability to enable or disable thumbnail navigation for the screens less than 768px
+* Added ability to enable or disable video autoplay
+* Removed unnecessary CSS rules
 = 1.2.0 =
 * NEW Added Video thumbnail quality option for videos so that you can change the dimensions of thumbnails offered by YouTube. For example, you can use an image 4:3 ratio instead of default 16:9. However, you should stick to this ratio for all videos.
 * Fixed various CSS related issues

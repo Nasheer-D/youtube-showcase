@@ -167,14 +167,14 @@ function emd_parse_template_tags($app, $message, $pid) {
 		'pending',
 		'draft'
 	))) {
-		$permlink = wp_login_url(add_query_arg('preview', 'true', get_permalink($pid)));
+		$permlink = wp_login_url(esc_url(add_query_arg('preview', 'true', get_permalink($pid))));
 	}
 
 	$builtins = Array(
 		'title' => $mypost->post_title,
 		'permalink' => $permlink,
 		'edit_link' => get_edit_post_link($pid) ,
-		'delete_link' => add_query_arg('frontend', 'true', get_delete_post_link($pid)) ,
+		'delete_link' => esc_url(add_query_arg('frontend', 'true', get_delete_post_link($pid))) ,
 		'excerpt' => $mypost->post_excerpt,
 		'content' => $mypost->post_content,
 		'author_dispname' => get_the_author_meta('display_name',$mypost->post_author),
@@ -186,12 +186,22 @@ function emd_parse_template_tags($app, $message, $pid) {
 		'author_googleplus' => get_the_author_meta('googleplus',$mypost->post_author),
 		'author_twitter' => get_the_author_meta('twitter',$mypost->post_author),
 	);
+
+	$glob_list = get_option($app . "_glob_list");
+	if(!empty($glob_list)){
+		foreach($glob_list as $kglob => $vglob){
+			$globs[$kglob] = emd_glob_val($app,$kglob);
+		}
+	}
+	
 	//first get each template tag
 	if (preg_match_all('/\{([^}]*)\}/', $message, $matches)) {
 		foreach ($matches[1] as $match_tag) {
 			//replace if builtin
 			if (in_array($match_tag, array_keys($builtins))) {
 				$message = str_replace('{' . $match_tag . '}', $builtins[$match_tag], $message);
+			} elseif (!empty($globs) && in_array($match_tag, array_keys($globs))) {
+				$message = str_replace('{' . $match_tag . '}', $globs[$match_tag], $message);
 			} elseif (preg_match('/^wpas_/', $match_tag)) {
 				$message = str_replace('{' . $match_tag . '}', emd_mb_meta($match_tag, array() , $pid) , $message);
 			} elseif (preg_match('/^emd_/', $match_tag)) {
@@ -369,4 +379,27 @@ function emd_check_uniq_from_wpdb($data, $post_id, $post_type) {
 		return true;
 	}
 	return false;
+}
+/**
+ * Enqueue if allview css is not enqueued
+ *
+ * @since WPAS 4.5
+ *
+ */
+function emd_enq_allview(){
+        if(!wp_style_is('allview-css','enqueued')){
+                wp_enqueue_style('allview-css');
+        }
+}
+/**
+ * Show insert into post button for media uploads
+ *
+ * @since WPAS 4.5
+ * @param array $args
+ * @return array $args
+ *
+ */
+function emd_media_item_args($args){
+        $args['send'] = true;
+        return $args;
 }

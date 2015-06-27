@@ -257,6 +257,7 @@ class Emd_Entity {
 						$search_args[$kattr]['desc'] = $vattr['desc'];
 					}
 					$this->boxes[0]['fields'][$kattr]['name'] = $vattr['label'];
+					$this->boxes[0]['fields'][$kattr]['list_visible'] = $vattr['list_visible'];
 					$this->boxes[0]['fields'][$kattr]['id'] = $kattr;
 					if ($vattr['display_type'] == 'user-adv') {
 						$this->boxes[0]['fields'][$kattr]['type'] = 'user';
@@ -280,7 +281,8 @@ class Emd_Entity {
 						'std',
 						'options',
 						'placeholder',
-						'field_type'
+						'field_type',
+						'address_field',
 					);
 					foreach ($attr_fields as $attr_field) {
 						if (isset($vattr[$attr_field])) {
@@ -354,6 +356,15 @@ class Emd_Entity {
 							}
 						}
 					}
+				}
+			}
+		}
+		$tax_list = get_option($myapp . '_tax_list');
+		if (!empty($tax_list[$this->post_type])) {
+			foreach ($tax_list[$this->post_type] as $ktax => $vtax) {
+				if(!empty($vtax['conditional']['attr_rules']) || !empty($vtax['conditional']['tax_rules'])){
+					$this->boxes[0]['tax_conditional'][$ktax] = $vtax['conditional'];
+					$this->boxes[0]['tax_conditional'][$ktax]['type'] = $vtax['cond_type'];
 				}
 			}
 		}

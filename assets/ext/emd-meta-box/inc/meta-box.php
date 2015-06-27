@@ -58,6 +58,10 @@ if ( ! class_exists( 'EMD_Meta_Box' ) )
 			$this->fields     = &$this->meta_box['fields'];
 			$this->validation = &$this->meta_box['validation'];
 			$this->conditional = &$this->meta_box['conditional'];
+			if(!empty($this->meta_box['tax_conditional'])){
+				$this->conditional =array_merge($this->conditional,$this->meta_box['tax_conditional']);
+			}
+
 
 			// Allow users to show/hide meta box
 			// 1st action applies to all meta boxes

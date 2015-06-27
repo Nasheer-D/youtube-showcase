@@ -99,9 +99,9 @@ function emd_shc_insert_button() {
 						var ent_val = $('#wpas-components option:selected').attr('ent');
 						if(ent_val === null || ent_val === undefined) {
 						<?php do_action('emd_' . $std_analytics . '_hide_div'); ?>
-						$('input[type="submit"]').show();
 						}
 						<?php do_action('emd_' . $std_analytics . '_call_js'); ?>
+						$('input[type="submit"]').show();
 						});
 					$( '#add-wpas-component' ).submit(function(e){
 						e.preventDefault();

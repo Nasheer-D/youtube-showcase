@@ -24,10 +24,10 @@ define( 'EMD_MB_FIELDS_DIR', trailingslashit( EMD_MB_INC_DIR . 'fields' ) );
 // @see http://www.deluxeblogtips.com/?p=345
 
 // Helper function to retrieve meta value
-require_once EMD_MB_INC_DIR . 'helpers.php';
+//require_once EMD_MB_INC_DIR . 'helpers.php';
 
-if ( is_admin() )
-{
+//if ( is_admin() )
+//{
 	require_once EMD_MB_INC_DIR . 'field.php';
 
 	// Field classes
@@ -39,7 +39,11 @@ if ( is_admin() )
 	// Main file
 	require_once EMD_MB_INC_DIR . 'meta-box.php';
 	require_once EMD_MB_INC_DIR . 'init.php';
-}
+//}
+
+// Helper function to retrieve meta value
+require_once EMD_MB_INC_DIR . 'helpers.php';
+
 if (!function_exists('emd_hidden_begin_html')){
 	add_filter( 'emd_mb_hidden_begin_html', 'emd_hidden_begin_html' );
 	function emd_hidden_begin_html()

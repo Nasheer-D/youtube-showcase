@@ -3,7 +3,7 @@
  * Integration Shortcode Functions
  *
  * @package YT_SCASE_COM
- * @version 1.2.0
+ * @version 1.3.0
  * @since WPAS 4.0
  */
 if (!defined('ABSPATH')) exit;
@@ -20,6 +20,10 @@ function yt_scase_com_get_integ_video_gallery() {
 	if (!current_user_can('view_video_gallery') && !empty($access_views['integration']) && in_array('video_gallery', $access_views['integration'])) {
 		return $no_access_msg;
 	} else {
+		wp_enqueue_script('jquery');
+		wp_enqueue_style('boot');
+		wp_enqueue_script('boot-js');
+		add_action('wp_footer', 'emd_enq_allview');
 		ob_start();
 		emd_get_template_part('yt-scase-com', 'integration', 'video-gallery');
 		$layout = ob_get_clean();

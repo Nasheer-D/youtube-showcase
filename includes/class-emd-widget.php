@@ -57,11 +57,7 @@ class Emd_Widget extends WP_Widget {
 			$args['has_pages'] = $this->has_pages;
 			$args['class'] = $this->class;
 			$args['cname'] = get_class($this);
-			if(!empty($this->filter)){
-				$emd_query = new Emd_Query($this->class, str_replace("-","_",$this->text_domain));
-        			$emd_query->args_filter($this->filter);
-        			$this->query_args = array_merge($this->query_args,$emd_query->args);
-			}
+			$args['app'] = str_replace("-","_",$this->text_domain);
 			$args['query_args'] = $this->query_args;
 			$widg_layout = self::get_ent_widget_layout($count, $pids,$args);
 		} elseif ($this->type == 'comment') {
@@ -137,6 +133,12 @@ class Emd_Widget extends WP_Widget {
 	public static function get_ent_widget_layout($posts_per_page, $pids, $args = Array()) {
 		$paged = 1;
 		$layout = "";
+		if(!empty($args['filter'])){
+			$emd_query = new Emd_Query($args['class'],$args['app']);
+        		$emd_query->args_filter($args['filter']);
+        		$args['query_args'] = array_merge($args['query_args'],$emd_query->args);
+		}
+		
 		if ($args['has_pages']) {
 			if (get_query_var('paged')) $paged = get_query_var('paged');
 		}
