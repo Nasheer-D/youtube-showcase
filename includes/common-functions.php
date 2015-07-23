@@ -159,7 +159,7 @@ function emd_parse_template_tags($app, $message, $pid) {
 	if (!empty($access_views['single'])) {
 		foreach ($access_views['single'] as $single) {
 			if ($single['obj'] == $mypost->post_type) {
-				$permlink = wp_login_url(get_permalink($pid));
+				$permlink = wp_login_url(esc_url(add_query_arg('fr_emd_notify',1,get_permalink($pid))));
 			}
 		}
 	}
@@ -167,7 +167,8 @@ function emd_parse_template_tags($app, $message, $pid) {
 		'pending',
 		'draft'
 	))) {
-		$permlink = wp_login_url(esc_url(add_query_arg('preview', 'true', get_permalink($pid))));
+		$preview_link = add_query_arg('preview', 'true', get_permalink($pid));
+		$permlink = wp_login_url(add_query_arg('fr_emd_notify',1,$preview_link));
 	}
 
 	$builtins = Array(
@@ -206,6 +207,22 @@ function emd_parse_template_tags($app, $message, $pid) {
 				$message = str_replace('{' . $match_tag . '}', emd_mb_meta($match_tag, array() , $pid) , $message);
 			} elseif (preg_match('/^emd_/', $match_tag)) {
 				$new = emd_get_attr_val($app, $pid, $mypost->post_type, $match_tag);
+				$message = str_replace('{' . $match_tag . '}', $new, $message);
+			} elseif (preg_match('/^com_/', $match_tag)) {
+				$new_match_tag = preg_replace('/^com_/', '', $match_tag);
+				$mycomments = get_comments(array(
+					'post_id' => $pid,
+					'type' => $new_match_tag,
+					'status'=> 'approve',
+				));
+				$new = '<ul class="commentlist">';
+				foreach($mycomments as $mycomm){
+					$new .= "<li><div>" . __("Author:","emd-plugins") . $mycomm->comment_author . "&nbsp;&nbsp;";
+					$new .= get_comment_date(sprintf(__('%s \a\t %s', 'emd-plugins'),get_option('date_format'),get_option('time_format')),$mycomm->comment_ID) . "</div>";
+					$new .= "<p>" . $mycomm->comment_content . "</p>";
+					$new .= "</li>";
+				}
+                		$new .= '</ul>';
 				$message = str_replace('{' . $match_tag . '}', $new, $message);
 			} elseif (preg_match('/^rel_/', $match_tag)) {
 				$new_rel = "";

@@ -77,6 +77,9 @@ if ( !class_exists( 'EMD_MB_Date_Field' ) )
 			$field['js_options'] = wp_parse_args( $field['js_options'], array(
 				'dateFormat'      => empty( $field['format'] ) ? 'yy-mm-dd' : $field['format'],
 				'showButtonPanel' => true,
+				'changeMonth' => true,
+				'changeYear' => true,
+				'yearRange' => '-100:+10'
 			) );
 
 			return $field;

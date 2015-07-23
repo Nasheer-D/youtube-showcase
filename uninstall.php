@@ -5,7 +5,7 @@
  * Uninstalling deletes notifications and terms initializations
  *
  * @package YT_SCASE_COM
- * @version 1.3.0
+ * @version 1.4.0
  * @since WPAS 4.0
  */
 if (!defined('WP_UNINSTALL_PLUGIN')) exit;

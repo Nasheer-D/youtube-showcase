@@ -5,7 +5,7 @@ Author URI: https://emarketdesign.com
 Donate link: https://emarketdesign.com/donate-emarket-design/
 Requires at least: 4.0
 Tested up to: 4.2.2
-Stable tag: 1.3.0
+Stable tag: 1.4.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: youtube,video,video gallery,youtube gallery,youtube widget,embed videos,embed youtube,simple youtube,simple videos,simple video gallery,simple gallery,sidebar videos,video plugin,youtube plugin,responsive,video posts,videos,youtube player,featured videos,recent videos,youtube sidebar widget, youtube api, YouTube API,youtube view count,youtube duration,youtube statistics,view count,favorite count,video duration,video statistics,youtube views
@@ -50,14 +50,15 @@ Displays the videos you selected as featured in your video page on your sidebar.
 <strong>Recent Videos</strong><br>
 Displays your recently posted videos on the sidebar.
 
-<strong>Pro Version offers advanced video management and multi gallery views</strong><br>
-YouTube Showcase Professional edition features:<br>
+> <strong>YouTube Showcase Pro </strong> <br>
+> <strong>Pro Version offers 40-65% faster page loads, advanced video management and multi gallery views</strong><br>
+<strong>YouTube Showcase Professional edition features:</strong><br>
    * Ability to display YouTube videos, channels, search results, and custom playlists. Create them in one place, display them everywhere.<br>
    * 40-65% faster page loads with on-demand video embedding.<br>
    * Create connections between your videos and display them in the video page.<br>
    * Fully translatable to any language like any other [WP App Studio](https://wpas.emdplugins.com) plugin.<br>
    * Ability to set video thumbnail image independent of the video owner. If the video is for a single video and the custom image is not set, it uses the YouTube thumbnail image.<br>
-   * Advanced admin area video filtering; create/ save filters, sort, reorder, display/hide columns and more.<br>
+   * Advanced admin area video filtering; create/ save filters, sort, drag and drop video order, display/hide columns and more.<br>
    * Pick and choose from the available 8 different video stats to display them on the front end.<br>
    * 9 Responsive Gallery Views to display your videos. Full set all matching each other with look and feel to provide uniform viewing experience.<br>
    * Customize the player with all the options available in YouTube API V3.<br>
@@ -107,9 +108,13 @@ The simplest way to install is to click on 'Plugins' then 'Add' and type 'Youtub
 3. Displays a 4 column responsive video grid gallery created automatically during plugin setup
 4. Each video resides on its own page with WordPress comments enabled, optionally you could display Featured and Recent Sidebar Widgets
 5. Enter your videos using a simple and intuitive interface from admin video editor
-6. YouTube Showcase Pro Edition offers many advanced video management,player configuration, and display options
+6. YouTube Showcase PRO Edition offers 40-65% faster page loads, many advanced video management,player configuration, and display options. Highly recommended for site owners.
+
 
 == Changelog ==
+= 1.4.0 =
+* Fixed the issue related to HTML5 video player not playing by default
+* Fixed the issue related to videos not displayed on the gallery (Blank video image was showing) when clicked on video thumbnail
 = 1.3.0 =
 * Added ability to enable or disable thumbnail navigation for the screens less than 768px
 * Added ability to enable or disable video autoplay

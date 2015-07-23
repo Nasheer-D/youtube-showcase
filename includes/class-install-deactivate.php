@@ -2,7 +2,7 @@
 /**
  * Install and Deactivate Plugin Functions
  * @package YT_SCASE_COM
- * @version 1.3.0
+ * @version 1.4.0
  * @since WPAS 4.0
  */
 if (!defined('ABSPATH')) exit;
@@ -46,7 +46,7 @@ if (!class_exists('Yt_Scase_Com_Install_Deactivate')):
 			add_action('admin_init', array(
 				$this,
 				'register_settings'
-			));
+			) , 0);
 			add_filter('tiny_mce_before_init', array(
 				$this,
 				'tinymce_fix'
@@ -158,6 +158,7 @@ if (!class_exists('Yt_Scase_Com_Install_Deactivate')):
 			$ent_list = Array(
 				'emd_video' => Array(
 					'label' => __('Videos', 'yt-scase-com') ,
+					'sortable' => 0,
 					'unique_keys' => Array(
 						'emd_video_key'
 					) ,
@@ -267,6 +268,7 @@ if (!class_exists('Yt_Scase_Com_Install_Deactivate')):
 				'default' => '',
 				'type' => 'builtin',
 				'hier' => 1,
+				'sortable' => 0,
 				'required' => 0,
 				'srequired' => 0
 			);
@@ -275,6 +277,7 @@ if (!class_exists('Yt_Scase_Com_Install_Deactivate')):
 				'default' => '',
 				'type' => 'builtin',
 				'hier' => 1,
+				'sortable' => 0,
 				'required' => 0,
 				'srequired' => 0
 			);

@@ -20,7 +20,11 @@ class Emd_Query {
 	var $rel_posts = Array();
 	var $entity = "";
 	var $app = "";
+	var $context = "";
 	var $has_rel = 0;
+	var $filter = Array();
+	var $add_join_filter = 0;
+	var $add_where_filter = 0;
 	/**
 	 * Instantiate emd query class
 	 * Set entity and app names
@@ -30,9 +34,10 @@ class Emd_Query {
 	 * @param string $myapp
 	 *
 	 */
-	public function __construct($entity, $myapp) {
+	public function __construct($entity, $myapp, $context='') {
 		$this->entity = $entity;
 		$this->app = $myapp;
+		$this->context = $context;
 	}
 	/**
 	 * Get filter list and create wp query args
@@ -75,6 +80,12 @@ class Emd_Query {
 				);
 			}
 		}
+		if($this->add_where_filter === 1){
+			add_filter('posts_where',array($this,'get_meta_posts_where'),10,2);
+		}
+		elseif($this->add_join_filter === 1){
+			add_filter('posts_join',array($this,'get_meta_posts_join'),10,2);
+		}
 	}
 	/**
 	 * Get fields list and create meta query
@@ -88,6 +99,7 @@ class Emd_Query {
 		$ent_attrs = get_option($this->app . '_attr_list');
 		$type = "char";
 		$value = $field_list[3];
+		$compare = emd_get_meta_operator($field_list[2]);
 		if (isset($ent_attrs[$this->entity][$field_list[1]]['type'])) {
 			$type = $ent_attrs[$this->entity][$field_list[1]]['type'];
 		}
@@ -96,10 +108,107 @@ class Emd_Query {
 			'time',
 			'datetime'
 		))) {
-			$value = emd_translate_date_format($ent_attrs[$this->entity][$field_list[1]], $field_list[3]);
+			switch($value){
+				case 'current_year':
+					$start = date("Y-01-01");
+					$end = date("Y-12-31");
+					$value = array($start,$end);
+					$compare ="BETWEEN";
+					$this->add_where_filter = 1;
+					break;
+				case 'last_year':
+					$start = date("Y-m-d",strtotime("first day of January last year"));
+					$end = date("Y-m-d",strtotime("last day of December last year"));
+					$value = array($start,$end);
+					$compare ="BETWEEN";
+					$this->add_where_filter = 1;
+					break;
+				case 'next_year':
+					$start = date("Y-m-d",strtotime("first day of January next year"));
+					$end = date("Y-m-d",strtotime("last day of December next year"));
+					$value = array($start,$end);
+					$compare ="BETWEEN";
+					$this->add_where_filter = 1;
+					break;
+				case 'current_month_year':
+					$start = date("Y-m-01");
+					$end = date("Y-m-t");
+					$value = array($start,$end);
+					$compare ="BETWEEN";
+					$this->add_where_filter = 1;
+					break;
+				case 'last_month_year':
+					$start = date("Y-m-d",strtotime("first day of last month"));
+					$end = date("Y-m-d",strtotime("last day of last month"));
+					$value = array($start,$end);
+					$compare ="BETWEEN";
+					$this->add_where_filter = 1;
+					break;
+				case 'next_month_year':
+					$start = date("Y-m-d",strtotime("first day of next month"));
+					$end = date("Y-m-d",strtotime("last day of next month"));
+					$value = array($start,$end);
+					$compare ="BETWEEN";
+					$this->add_where_filter = 1;
+					break;
+				case 'current_week_year':
+					$start = date("Y-m-d",strtotime('monday this week'));
+					$end = date("Y-m-d",strtotime('sunday this week'));
+					$value = array($start,$end);
+					$compare ="BETWEEN";
+					$this->add_where_filter = 1;
+					break;
+				case 'last_week_year':
+					$start = date("Y-m-d",strtotime('monday last week'));
+					$end = date("Y-m-d",strtotime('sunday last week'));
+					$value = array($start,$end);
+					$compare ="BETWEEN";
+					$this->add_where_filter = 1;
+					break;
+				case 'next_week_year':
+					$start = date("Y-m-d",strtotime('monday next week'));
+					$end = date("Y-m-d",strtotime('sunday next week'));
+					$value = array($start,$end);
+					$compare ="BETWEEN";
+					$this->add_where_filter = 1;
+					break;
+				case 'current_date':
+					$value = date("Y-m-d");
+					$compare = emd_get_meta_operator($field_list[2]);
+					$this->add_where_filter = 1;
+					break;
+				case 'yesterday':
+					$value = date('Y-m-d', strtotime("-1 days"));
+					$compare = emd_get_meta_operator($field_list[2]);
+					$this->add_where_filter = 1;
+					break;
+				case 'tomorrow':
+					$value = date('Y-m-d', strtotime("+1 days"));
+					$compare = emd_get_meta_operator($field_list[2]);
+					$this->add_where_filter = 1;
+					break;
+				case 'current_day_month':
+					$this->add_join_filter = 1;
+					$this->filter[] = $field_list;
+					return Array();
+					break;
+				case 'current_week':
+					$this->add_join_filter = 1;
+					$this->filter[] = $field_list;
+					return Array();
+					break;
+				case 'current_month':
+					$this->add_join_filter = 1;
+					$this->filter[] = $field_list;
+					return Array();
+					break;
+				default:	
+					$value = emd_translate_date_format($ent_attrs[$this->entity][$field_list[1]], $field_list[3]);
+					$compare = emd_get_meta_operator($field_list[2]);
+					break;
+			}
 		}
-		$compare = emd_get_meta_operator($field_list[2]);
-		if (is_array($value)) {
+		if (is_array($value) && $compare != 'BETWEEN') {
 			$compare = "IN";
 		}
 		$meta_query = array(
@@ -109,6 +218,61 @@ class Emd_Query {
 			'type' => $type,
 		);
 		return $meta_query;
+	}
+	/**
+	 * Add join query to meta query
+	 * @since WPAS 4.6
+	 *
+	 * @param string $join
+	 *
+	 * @return string $join
+	 */
+	public function get_meta_posts_join($join, $wp_query){
+		global $wpdb;
+		if($wp_query->get('context') != $this->context) return;
+		$join = "JOIN " . $wpdb->postmeta . " ON  $wpdb->posts.ID = $wpdb->postmeta.post_id ";
+		foreach($this->filter as $myfilter){
+			$join .= " AND " . $wpdb->postmeta . ".meta_key='" . $myfilter[1] . "' AND ";
+			switch($myfilter[3]){
+				case 'current_week':
+					$join .= " WEEKOFYEAR(" . $wpdb->postmeta . ".meta_value) = " . date('W');
+					break;
+				case 'current_day_month':
+					$join .= " MONTH(" . $wpdb->postmeta . ".meta_value) = " . date('m') . " AND DAY(" . $wpdb->postmeta . ".meta_value) = " . date('d');
+					break;
+				case 'current_month':
+					$join .= " MONTH(" . $wpdb->postmeta . ".meta_value) = " . date('m');
+					break;
+			}
+		}
+		return $join;
+	}
+	/**
+	 * Add where query to meta query
+	 * @since WPAS 4.6
+	 *
+	 * @param string $where
+	 *
+	 * @return string $where
+	 */
+	public function get_meta_posts_where($where, $wp_query){
+		global $wpdb;
+		if($wp_query->get('context') != $this->context) return;
+		foreach($this->filter as $myfilter){
+			$where .= " AND " . $wpdb->postmeta . ".meta_key='" . $myfilter[1] . "' AND ";
+			switch($myfilter[3]){
+				case 'current_week':
+					$where .= " WEEK(" . $wpdb->postmeta . ".meta_value) = " . date('W');
+					break;
+				case 'current_day_month':
+					$where .= " MONTH(" . $wpdb->postmeta . ".meta_value) = " . date('m') . " AND DAY(" . $wpdb->postmeta . ".meta_value) = " . date('d');
+					break;
+				case 'current_month':
+					$where .= " MONTH(" . $wpdb->postmeta . ".meta_value) = " . date('m');
+					break;
+			}
+		}
+		return $where;
 	}
 	/**
 	 * Get fields list and create tax query

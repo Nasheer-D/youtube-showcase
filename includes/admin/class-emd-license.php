@@ -42,6 +42,23 @@ class Emd_License {
 		$settings = get_option('emd_license_settings',Array());
 		$settings[$this->app] = Array('type' => $this->type,'name' => $this->name);
 		update_option('emd_license_settings',$settings);
+		if(get_option($this->app . '_license_status') === false){
+			//check if any license saved
+			$licenses = get_option('emd_licenses',Array());
+			if(!empty($licenses)){
+				$new_licenses = Array();
+				foreach($licenses as $lkey => $lval){
+					if(preg_match('/_license_status$/',$lkey)){
+						$match = str_replace("_license_status","",$lkey);
+						update_option($match . '_license_status',$lval);
+					}
+					else {
+						$new_licenses[$lkey] = $lval;
+					}
+				}
+				update_option('emd_licenses',$new_licenses);
+			}
+		}
 	}
 			
 	/**
@@ -51,9 +68,8 @@ class Emd_License {
 	 */
 	public function license_updater() {
 		$emd_licenses = get_option('emd_licenses');
-		if(!isset($emd_licenses[$this->app . '_license_status']) || 'valid' !== $emd_licenses[$this->app . '_license_status'])
-                        return;
-
+		$license_status = get_option($this->app . '_license_status');
+		if($license_status === false || 'valid' !== $license_status) return;
 		if (empty($emd_licenses[$this->app . '_license_key'])) return;
 		$edd_updater = new EDD_SL_Plugin_Updater(constant(strtoupper($this->app) . '_EDD_STORE_URL') , constant(strtoupper($this->app) . '_PLUGIN_FILE') , array(
 			'version' => constant(strtoupper($this->app) . '_VERSION') ,

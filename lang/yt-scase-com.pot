@@ -7,8 +7,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2015-06-26T19:37:42-04:00\n"
-"POT-Creation-Date: 2015-06-26T19:37:42-04:00\n"
+"PO-Revision-Date: 2015-07-23T11:20:40-04:00\n"
+"POT-Creation-Date: 2015-07-23T11:20:40-04:00\n"
 
 #: youtube-showcase/includes/admin/glossary.php:22
 msgid "YouTube Showcase is a powerful but simple-to-use YouTube video gallery plugin with responsive frontend."
@@ -118,11 +118,11 @@ msgstr ""
 msgid "Please enter and activate your <b>license keys</b>."
 msgstr ""
 
-#: youtube-showcase/includes/admin/license-functions.php:81
+#: youtube-showcase/includes/admin/license-functions.php:78
 msgid "Deactivate License"
 msgstr ""
 
-#: youtube-showcase/includes/admin/license-functions.php:85
+#: youtube-showcase/includes/admin/license-functions.php:82
 msgid "Activate License"
 msgstr ""
 
@@ -163,102 +163,102 @@ msgstr ""
 msgid "Like our plugin? Leave us a review"
 msgstr ""
 
-#: youtube-showcase/includes/class-install-deactivate.php:176
+#: youtube-showcase/includes/class-install-deactivate.php:177
 msgid "Video Gallery"
 msgstr ""
 
-#: youtube-showcase/includes/class-install-deactivate.php:181
+#: youtube-showcase/includes/class-install-deactivate.php:182
 msgid "Video Grid Gallery"
 msgstr ""
 
-#: youtube-showcase/includes/class-install-deactivate.php:194
+#: youtube-showcase/includes/class-install-deactivate.php:195
 msgid "<p>The unique 11 digit alphanumeric video key found on the YouTube video. For example; in https://www.youtube.com/watch?v=uVgWZd7oGOk. uVgWZd7oGOk is the video id.</p>"
 msgstr ""
 
-#: youtube-showcase/includes/class-install-deactivate.php:208
+#: youtube-showcase/includes/class-install-deactivate.php:209
 msgid "Adds the video to featured video list."
 msgstr ""
 
-#: youtube-showcase/includes/class-install-deactivate.php:222
+#: youtube-showcase/includes/class-install-deactivate.php:223
 msgid "<p>Sets the resolution of video thumbnail image. The image size for each option;<br />\n<strong>Medium</strong> - 320 x 180, <strong>High</strong> - 480x360, <strong>Standard</strong> - 640 x 480, <strong>Max</strong> -1280 x 720</p>"
 msgstr ""
 
-#: youtube-showcase/includes/class-install-deactivate.php:226
+#: youtube-showcase/includes/class-install-deactivate.php:227
 msgid "Please Select"
 msgstr ""
 
-#: youtube-showcase/includes/class-install-deactivate.php:227
+#: youtube-showcase/includes/class-install-deactivate.php:228
 msgid "Standard"
 msgstr ""
 
-#: youtube-showcase/includes/class-install-deactivate.php:228
+#: youtube-showcase/includes/class-install-deactivate.php:229
 msgid "Medium"
 msgstr ""
 
-#: youtube-showcase/includes/class-install-deactivate.php:229
+#: youtube-showcase/includes/class-install-deactivate.php:230
 msgid "High"
 msgstr ""
 
-#: youtube-showcase/includes/class-install-deactivate.php:230
+#: youtube-showcase/includes/class-install-deactivate.php:231
 msgid "Max"
 msgstr ""
 
-#: youtube-showcase/includes/class-install-deactivate.php:242
+#: youtube-showcase/includes/class-install-deactivate.php:243
 msgid "When set the player starts video automatically. It may not work in all devices due to vendor preferences."
 msgstr ""
 
-#: youtube-showcase/includes/class-install-deactivate.php:252
+#: youtube-showcase/includes/class-install-deactivate.php:253
 msgid "Enable Thumbnails For Small Screens"
 msgstr ""
 
-#: youtube-showcase/includes/class-install-deactivate.php:266
+#: youtube-showcase/includes/class-install-deactivate.php:267
 msgid "Categories"
 msgstr ""
 
-#: youtube-showcase/includes/class-install-deactivate.php:274
+#: youtube-showcase/includes/class-install-deactivate.php:276
 msgid "Tags"
 msgstr ""
 
-#: youtube-showcase/includes/class-install-deactivate.php:339
+#: youtube-showcase/includes/class-install-deactivate.php:342
 msgid "New To Youtube Showcase? Review the documentation!"
 msgstr ""
 
-#: youtube-showcase/includes/class-install-deactivate.php:339
-#: youtube-showcase/includes/class-install-deactivate.php:351
+#: youtube-showcase/includes/class-install-deactivate.php:342
+#: youtube-showcase/includes/class-install-deactivate.php:354
 msgid "&#187;"
 msgstr ""
 
-#: youtube-showcase/includes/class-install-deactivate.php:339
-#: youtube-showcase/includes/class-install-deactivate.php:351
+#: youtube-showcase/includes/class-install-deactivate.php:342
+#: youtube-showcase/includes/class-install-deactivate.php:354
 msgid "Dismiss"
 msgstr ""
 
-#: youtube-showcase/includes/class-install-deactivate.php:351
+#: youtube-showcase/includes/class-install-deactivate.php:354
 msgid "Upgrade to Professional Version Now!"
 msgstr ""
 
-#: youtube-showcase/includes/class-install-deactivate.php:357
+#: youtube-showcase/includes/class-install-deactivate.php:360
 msgid "Welcome to Youtube Showcase"
 msgstr ""
 
-#: youtube-showcase/includes/class-install-deactivate.php:358
+#: youtube-showcase/includes/class-install-deactivate.php:361
 msgid "Setup Youtube Showcase Pages"
 msgstr ""
 
-#: youtube-showcase/includes/class-install-deactivate.php:358
+#: youtube-showcase/includes/class-install-deactivate.php:361
 msgid "Skip setup"
 msgstr ""
 
-#: youtube-showcase/includes/entities/class-emd-video-widgets.php:37
+#: youtube-showcase/includes/entities/class-emd-video-widgets.php:40
 msgid "Recent Videos"
 msgstr ""
 
-#: youtube-showcase/includes/entities/class-emd-video-widgets.php:37
-#: youtube-showcase/includes/entities/class-emd-video-widgets.php:77
+#: youtube-showcase/includes/entities/class-emd-video-widgets.php:40
+#: youtube-showcase/includes/entities/class-emd-video-widgets.php:100
 msgid "The most recent videos"
 msgstr ""
 
-#: youtube-showcase/includes/entities/class-emd-video-widgets.php:77
+#: youtube-showcase/includes/entities/class-emd-video-widgets.php:100
 msgid "Featured Videos"
 msgstr ""
 

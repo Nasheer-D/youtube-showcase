@@ -37,7 +37,7 @@ function emd_shc_get_layout_list($atts, $args, $args_default, $fields) {
 	}
 	if (empty($args)) {
 		if (is_array($atts) && !empty($atts['filter'])) {
-			$emd_query = new Emd_Query($fields['class'], $fields['app']);
+			$emd_query = new Emd_Query($fields['class'], $fields['app'], $fields['shc']);
 			$emd_query->args_filter($atts['filter']);
 			$args = $emd_query->args;
 		}
@@ -62,7 +62,8 @@ function emd_shc_get_layout_list($atts, $args, $args_default, $fields) {
 	if($fields['hier'] == 1){
                 return emd_shc_get_hier_list($args,$fields);
         }
-	else {
+	else {	
+		$args['context'] = $fields['shc'];
 		$myshc_query = new WP_Query($args);
 		if ($myshc_query->have_posts()) {
 			ob_start();

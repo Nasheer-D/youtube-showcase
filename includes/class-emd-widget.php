@@ -24,10 +24,10 @@ class Emd_Widget extends WP_Widget {
 	 * @param string $description
 	 *
 	 */
-	public function Emd_Widget($title, $class_label, $description) {
+	public function __construct($id, $title, $class_label, $description) {
 		$this->title = $title;
 		$this->class_label = $class_label;
-		parent::WP_Widget(false, $this->title, array(
+		parent::__construct($id, $this->title, array(
 			'description' => $description,
 		));
 	}
@@ -54,6 +54,7 @@ class Emd_Widget extends WP_Widget {
 			$pids = apply_filters('emd_limit_by', $pids, $app, $this->class);
 		}
 		if ($this->type == 'entity') {
+			$args['filter'] = $this->filter;
 			$args['has_pages'] = $this->has_pages;
 			$args['class'] = $this->class;
 			$args['cname'] = get_class($this);
@@ -64,15 +65,28 @@ class Emd_Widget extends WP_Widget {
 			$widg_layout = $this->get_comm_widget_layout($count, $pids);
 		}
 		if ($widg_layout) {
+			$this->get_header_footer();
 			echo "<div class='emd-container'>";
 			if ($title) {
 				echo $before_title . $title . $after_title;
 			}
-			echo "<ul class='" . esc_attr($this->css_label) . "-list'>";
+			if(empty($this->header) && empty($this->footer)){
+				echo "<ul class='" . esc_attr($this->css_label) . "-list'>";
+			}
+			else {
+				echo $this->header;
+			}
 			echo $widg_layout;
-			echo "</ul></div>";
+			if(empty($this->header) && empty($this->footer)){
+				echo "</ul></div>";
+			}
+			else {
+				echo $this->footer;
+			}
+				
 		}
 		echo $after_widget;
+		$this->enqueue_scripts();
 	}
 	/**
 	 * Widget update from admin
@@ -134,7 +148,7 @@ class Emd_Widget extends WP_Widget {
 		$paged = 1;
 		$layout = "";
 		if(!empty($args['filter'])){
-			$emd_query = new Emd_Query($args['class'],$args['app']);
+			$emd_query = new Emd_Query($args['class'],$args['app'],$args['query_args']['context']);
         		$emd_query->args_filter($args['filter']);
         		$args['query_args'] = array_merge($args['query_args'],$emd_query->args);
 		}

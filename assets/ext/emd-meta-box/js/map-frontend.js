@@ -72,4 +72,7 @@ jQuery( function ( $ )
 
 	// Loop through all map instances and display them
 	$( '.emd-mb-map-canvas' ).each( displayMap );
+	$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+                        $( '.emd-mb-map-canvas' ).each(displayMap);
+        });
 } );

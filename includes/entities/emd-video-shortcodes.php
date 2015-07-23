@@ -3,7 +3,7 @@
  * Entity Related Shortcode Functions
  *
  * @package YT_SCASE_COM
- * @version 1.3.0
+ * @version 1.4.0
  * @since WPAS 4.0
  */
 if (!defined('ABSPATH')) exit;
@@ -46,8 +46,8 @@ function video_grid_list($atts) {
 	$show_shc = 1;
 	if ($show_shc == 1) {
 		wp_enqueue_script('jquery');
-		wp_enqueue_style('boot');
-		wp_enqueue_script('boot-js');
+		wp_enqueue_style('wpas-boot');
+		wp_enqueue_script('wpas-boot-js');
 		add_action('wp_footer', 'emd_enq_allview');
 		$list = "<div class='emd-container'>";
 		$list.= yt_scase_com_video_grid_set_shc($atts);
@@ -96,8 +96,8 @@ function video_indicators_list($atts) {
 	$show_shc = 1;
 	if ($show_shc == 1) {
 		wp_enqueue_script('jquery');
-		wp_enqueue_style('boot');
-		wp_enqueue_script('boot-js');
+		wp_enqueue_style('wpas-boot');
+		wp_enqueue_script('wpas-boot-js');
 		add_action('wp_footer', 'emd_enq_allview');
 		$list = "<div class='emd-container'>";
 		$list.= yt_scase_com_video_indicators_set_shc($atts);
@@ -146,8 +146,8 @@ function video_items_list($atts) {
 	$show_shc = 1;
 	if ($show_shc == 1) {
 		wp_enqueue_script('jquery');
-		wp_enqueue_style('boot');
-		wp_enqueue_script('boot-js');
+		wp_enqueue_style('wpas-boot');
+		wp_enqueue_script('wpas-boot-js');
 		add_action('wp_footer', 'emd_enq_allview');
 		$list = "<div class='emd-container'>";
 		$list.= yt_scase_com_video_items_set_shc($atts);

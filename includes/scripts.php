@@ -3,7 +3,7 @@
  * Enqueue Scripts Functions
  *
  * @package YT_SCASE_COM
- * @version 1.3.0
+ * @version 1.4.0
  * @since WPAS 4.0
  */
 if (!defined('ABSPATH')) exit;
@@ -89,20 +89,19 @@ add_action('wp_enqueue_scripts', 'yt_scase_com_frontend_scripts');
  */
 function yt_scase_com_frontend_scripts() {
 	$dir_url = YT_SCASE_COM_PLUGIN_URL;
-	if (is_page()) {
-		$grid_vars = Array();
-		$local_vars['ajax_url'] = admin_url('admin-ajax.php');
-		$wpas_shc_list = get_option('yt_scase_com_shc_list');
-		wp_register_style('boot', $dir_url . 'assets/ext/wpas/wpas-bootstrap.min.css');
-		wp_register_script('boot-js', $dir_url . 'assets/ext/wpas/bootstrap.min.js');
-		wp_register_style('allview-css', $dir_url . '/assets/css/allview.css');
-		return;
-	}
+	$grid_vars = Array();
+	$local_vars['ajax_url'] = admin_url('admin-ajax.php');
+	$wpas_shc_list = get_option('yt_scase_com_shc_list');
+	wp_register_style('wpas-boot', $dir_url . 'assets/ext/wpas/wpas-bootstrap.min.css');
+	wp_register_script('wpas-boot-js', $dir_url . 'assets/ext/wpas/bootstrap.min.js');
+	wp_register_style('allview-css', $dir_url . '/assets/css/allview.css');
 	if (is_single() && get_post_type() == 'emd_video') {
 		wp_enqueue_script('jquery');
-		wp_enqueue_style('boot', $dir_url . 'assets/ext/wpas/wpas-bootstrap.min.css');
-		wp_enqueue_script('boot-js', $dir_url . 'assets/ext/wpas/bootstrap.min.js');
-		wp_enqueue_style('allview-css', $dir_url . '/assets/css/allview.css');
+		wp_enqueue_style('wpas-boot');
+		wp_enqueue_script('wpas-boot-js');
+		wp_enqueue_style('single-video-cdn');
+		wp_enqueue_script('single-video-cdn');
+		wp_enqueue_style('allview-css');
 		return;
 	}
 }

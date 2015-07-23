@@ -192,6 +192,15 @@
 				$( this ).data('mapController', field);
 			});
 		});
+		$('.emd-tabs-acc').on( "click", function( event, ui ){
+                        $( '.emd-mb-map-field' ).each( function()
+                        {
+                                var field = new mapField( $( this ) );
+                                field.init();
+
+                                $( this ).data('mapController', field);
+                        } );
+                });
 	} );
 
 } )( jQuery );
